@@ -1,0 +1,155 @@
+[
+  {
+    "id": "agency",
+    "synthetic": true,
+    "text": "Qualifications\nHigh agency required.",
+    "expected": [
+      {
+        "concept": "initiative",
+        "status": "required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "ownership",
+    "synthetic": true,
+    "text": "Qualifications\nOwns outcomes and follows through.",
+    "expected": [
+      {
+        "concept": "ownership",
+        "status": "required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "independence",
+    "synthetic": true,
+    "text": "Qualifications\nWork independently without supervision.",
+    "expected": [
+      {
+        "concept": "independent_work",
+        "status": "required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "not-needed",
+    "synthetic": true,
+    "text": "Qualifications\nNo Python experience required.",
+    "expected": [
+      {
+        "concept": "python",
+        "status": "not_required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "mixed-strength",
+    "synthetic": true,
+    "text": "Qualifications\nSQL required but Python preferred.",
+    "expected": [
+      {
+        "concept": "sql",
+        "status": "required",
+        "statement_scope": "qualification"
+      },
+      {
+        "concept": "python",
+        "status": "preferred",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "culture",
+    "synthetic": true,
+    "text": "Our culture\nWe value high agency.",
+    "expected": [
+      {
+        "concept": "initiative",
+        "status": "unclear",
+        "statement_scope": "company_expectation"
+      }
+    ]
+  },
+  {
+    "id": "recruiting-ai",
+    "synthetic": true,
+    "text": "We use AI tools to screen candidate applications.",
+    "expected": [
+      {
+        "concept": "everyday_ai_use",
+        "status": "unclear",
+        "statement_scope": "hiring_process"
+      }
+    ]
+  },
+  {
+    "id": "product-ai",
+    "synthetic": true,
+    "text": "About us\nWe build AI tools for clients.",
+    "expected": [
+      {
+        "concept": "everyday_ai_use",
+        "status": "unclear",
+        "statement_scope": "company_description"
+      }
+    ]
+  },
+  {
+    "id": "practical-ai",
+    "synthetic": true,
+    "text": "Qualifications\nExperience with AI tools and ChatGPT required.",
+    "expected": [
+      {
+        "concept": "everyday_ai_use",
+        "status": "required",
+        "statement_scope": "qualification"
+      },
+      {
+        "concept": "chatgpt",
+        "status": "required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "ai-building",
+    "synthetic": true,
+    "text": "Qualifications\nExperience with fine-tuning and LLM integration required.",
+    "expected": [
+      {
+        "concept": "fine_tuning",
+        "status": "required",
+        "statement_scope": "qualification"
+      },
+      {
+        "concept": "model_integration",
+        "status": "required",
+        "statement_scope": "qualification"
+      }
+    ]
+  },
+  {
+    "id": "negative-control",
+    "synthetic": true,
+    "text": "Benefits\nEquity ownership is part of our offer.",
+    "expected": []
+  },
+  {
+    "id": "job-task",
+    "synthetic": true,
+    "text": "Responsibilities\nCollaborate with teammates.",
+    "expected": [
+      {
+        "concept": "collaboration",
+        "status": "unclear",
+        "statement_scope": "responsibility"
+      }
+    ]
+  }
+]
