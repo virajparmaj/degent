@@ -1,0 +1,569 @@
+{
+  "version": "requirements-v2",
+  "concepts": [
+    {
+      "id": "python",
+      "label": "Python",
+      "category": "technical",
+      "phrases": [
+        "Python"
+      ]
+    },
+    {
+      "id": "r",
+      "label": "R",
+      "category": "technical",
+      "phrases": [
+        "R programming",
+        "R"
+      ]
+    },
+    {
+      "id": "sql",
+      "label": "Sql",
+      "category": "technical",
+      "phrases": [
+        "SQL"
+      ]
+    },
+    {
+      "id": "machine_learning",
+      "label": "Machine learning",
+      "category": "technical",
+      "phrases": [
+        "machine learning"
+      ]
+    },
+    {
+      "id": "statistics",
+      "label": "Statistics",
+      "category": "technical",
+      "phrases": [
+        "statistics",
+        "statistical analysis"
+      ]
+    },
+    {
+      "id": "statistical_modeling",
+      "label": "Statistical modeling",
+      "category": "technical",
+      "phrases": [
+        "statistical modeling"
+      ]
+    },
+    {
+      "id": "quantitative_modeling",
+      "label": "Quantitative modeling",
+      "category": "technical",
+      "phrases": [
+        "quantitative modeling"
+      ]
+    },
+    {
+      "id": "model_validation",
+      "label": "Model validation",
+      "category": "technical",
+      "phrases": [
+        "model validation"
+      ]
+    },
+    {
+      "id": "experimentation",
+      "label": "Experimentation",
+      "category": "technical",
+      "phrases": [
+        "experimentation",
+        "A/B testing"
+      ]
+    },
+    {
+      "id": "forecasting",
+      "label": "Forecasting",
+      "category": "technical",
+      "phrases": [
+        "forecasting"
+      ]
+    },
+    {
+      "id": "business_analysis",
+      "label": "Business analysis",
+      "category": "technical",
+      "phrases": [
+        "business analysis"
+      ]
+    },
+    {
+      "id": "data_analysis",
+      "label": "Data analysis",
+      "category": "technical",
+      "phrases": [
+        "data analysis",
+        "data analytics"
+      ]
+    },
+    {
+      "id": "credit_risk",
+      "label": "Credit risk",
+      "category": "domain",
+      "phrases": [
+        "credit risk",
+        "credit-risk"
+      ]
+    },
+    {
+      "id": "fraud_analytics",
+      "label": "Fraud analytics",
+      "category": "domain",
+      "phrases": [
+        "fraud analytics"
+      ]
+    },
+    {
+      "id": "lending",
+      "label": "Lending",
+      "category": "domain",
+      "phrases": [
+        "lending"
+      ]
+    },
+    {
+      "id": "underwriting",
+      "label": "Underwriting",
+      "category": "domain",
+      "phrases": [
+        "underwriting"
+      ]
+    },
+    {
+      "id": "credit_policy",
+      "label": "Credit policy",
+      "category": "domain",
+      "phrases": [
+        "credit policy"
+      ]
+    },
+    {
+      "id": "communication",
+      "label": "Communication",
+      "category": "people_skills",
+      "phrases": [
+        "communication",
+        "communicate clearly",
+        "explains complex ideas",
+        "explain findings"
+      ]
+    },
+    {
+      "id": "written_communication",
+      "label": "Written communication",
+      "category": "people_skills",
+      "phrases": [
+        "clear writing",
+        "written communication",
+        "async communication",
+        "documents findings"
+      ]
+    },
+    {
+      "id": "presenting_findings",
+      "label": "Presenting findings",
+      "category": "people_skills",
+      "phrases": [
+        "presents findings",
+        "present findings",
+        "data storytelling"
+      ]
+    },
+    {
+      "id": "collaboration",
+      "label": "Collaboration",
+      "category": "people_skills",
+      "phrases": [
+        "collaboration",
+        "collaborate",
+        "cross-functional",
+        "cross functional",
+        "works across teams"
+      ]
+    },
+    {
+      "id": "stakeholder_alignment",
+      "label": "Stakeholder alignment",
+      "category": "people_skills",
+      "phrases": [
+        "stakeholder management",
+        "influence without authority",
+        "aligns priorities"
+      ]
+    },
+    {
+      "id": "customer_understanding",
+      "label": "Customer understanding",
+      "category": "people_skills",
+      "phrases": [
+        "customer empathy",
+        "customer-focused",
+        "user-focused"
+      ]
+    },
+    {
+      "id": "mentoring",
+      "label": "Mentoring",
+      "category": "people_skills",
+      "phrases": [
+        "mentoring",
+        "coaching",
+        "mentors colleagues"
+      ]
+    },
+    {
+      "id": "initiative",
+      "label": "Initiative",
+      "category": "work_habits",
+      "phrases": [
+        "high agency",
+        "high-agency",
+        "takes initiative",
+        "proactive",
+        "self-starter",
+        "bias for action"
+      ]
+    },
+    {
+      "id": "ownership",
+      "label": "Ownership",
+      "category": "work_habits",
+      "phrases": [
+        "owns outcomes",
+        "ownership",
+        "accountability",
+        "accountable",
+        "follows through"
+      ]
+    },
+    {
+      "id": "independent_work",
+      "label": "Independent work",
+      "category": "work_habits",
+      "phrases": [
+        "works independently",
+        "work independently",
+        "self-directed",
+        "minimal supervision",
+        "without supervision"
+      ]
+    },
+    {
+      "id": "handling_ambiguity",
+      "label": "Handling ambiguity",
+      "category": "work_habits",
+      "phrases": [
+        "comfortable with ambiguity",
+        "comfort with ambiguity",
+        "navigates ambiguity",
+        "no established playbook"
+      ]
+    },
+    {
+      "id": "resourcefulness",
+      "label": "Resourcefulness",
+      "category": "work_habits",
+      "phrases": [
+        "resourceful",
+        "resourcefulness",
+        "unblocks work"
+      ]
+    },
+    {
+      "id": "judgment",
+      "label": "Judgment",
+      "category": "work_habits",
+      "phrases": [
+        "sound judgment",
+        "business acumen",
+        "commercial awareness",
+        "balances tradeoffs"
+      ]
+    },
+    {
+      "id": "learning",
+      "label": "Learning",
+      "category": "work_habits",
+      "phrases": [
+        "curiosity",
+        "curious",
+        "learns quickly",
+        "learning agility",
+        "growth mindset"
+      ]
+    },
+    {
+      "id": "adaptability",
+      "label": "Adaptability",
+      "category": "work_habits",
+      "phrases": [
+        "adaptability",
+        "adaptable"
+      ]
+    },
+    {
+      "id": "prioritization",
+      "label": "Prioritization",
+      "category": "work_habits",
+      "phrases": [
+        "prioritization",
+        "prioritizes",
+        "manages competing priorities"
+      ]
+    },
+    {
+      "id": "attention_to_detail",
+      "label": "Attention to detail",
+      "category": "work_habits",
+      "phrases": [
+        "attention to detail",
+        "detail-oriented",
+        "detail oriented"
+      ]
+    },
+    {
+      "id": "reliability",
+      "label": "Reliability",
+      "category": "work_habits",
+      "phrases": [
+        "dependable",
+        "dependability",
+        "reliable"
+      ]
+    },
+    {
+      "id": "persistence",
+      "label": "Persistence",
+      "category": "work_habits",
+      "phrases": [
+        "perseverance",
+        "resilience",
+        "persistent"
+      ]
+    },
+    {
+      "id": "ai_familiarity",
+      "label": "Ai familiarity",
+      "category": "ai_use",
+      "phrases": [
+        "AI literacy",
+        "AI fluency",
+        "AI-literate",
+        "AI fluent",
+        "comfortable with AI tools"
+      ]
+    },
+    {
+      "id": "everyday_ai_use",
+      "label": "Everyday ai use",
+      "category": "ai_use",
+      "phrases": [
+        "AI tools",
+        "AI assistants",
+        "AI-assisted",
+        "AI assisted",
+        "AI-enabled analysis"
+      ]
+    },
+    {
+      "id": "ai_workflows",
+      "label": "Ai workflows",
+      "category": "ai_use",
+      "phrases": [
+        "AI workflows",
+        "AI-powered workflows",
+        "AI-enabled workflows",
+        "AI-first workflows"
+      ]
+    },
+    {
+      "id": "ai_agents",
+      "label": "Ai agents",
+      "category": "ai_use",
+      "phrases": [
+        "agentic workflows",
+        "AI agents",
+        "agentic tools"
+      ]
+    },
+    {
+      "id": "prompting",
+      "label": "Prompting",
+      "category": "ai_use",
+      "phrases": [
+        "prompt design",
+        "prompting",
+        "reusable prompts",
+        "prompt engineering"
+      ]
+    },
+    {
+      "id": "checking_ai_output",
+      "label": "Checking ai output",
+      "category": "ai_use",
+      "phrases": [
+        "check AI output",
+        "checking AI output",
+        "validate AI output",
+        "human-in-the-loop",
+        "human-reviewed AI"
+      ]
+    },
+    {
+      "id": "responsible_ai_use",
+      "label": "Responsible ai use",
+      "category": "ai_use",
+      "phrases": [
+        "responsible AI",
+        "AI governance",
+        "safe AI use"
+      ]
+    },
+    {
+      "id": "ai_adoption",
+      "label": "Ai adoption",
+      "category": "ai_use",
+      "phrases": [
+        "AI adoption",
+        "AI enablement",
+        "team adoption of AI"
+      ]
+    },
+    {
+      "id": "model_integration",
+      "label": "Model integration",
+      "category": "ai_engineering",
+      "phrases": [
+        "model integration",
+        "LLM integration"
+      ]
+    },
+    {
+      "id": "fine_tuning",
+      "label": "Fine tuning",
+      "category": "ai_engineering",
+      "phrases": [
+        "fine-tuning",
+        "fine tuning"
+      ]
+    },
+    {
+      "id": "retrieval_systems",
+      "label": "Retrieval systems",
+      "category": "ai_engineering",
+      "phrases": [
+        "retrieval-augmented generation",
+        "retrieval augmented generation"
+      ]
+    },
+    {
+      "id": "chatgpt",
+      "label": "Chatgpt",
+      "category": "tool",
+      "phrases": [
+        "ChatGPT"
+      ]
+    },
+    {
+      "id": "claude",
+      "label": "Claude",
+      "category": "tool",
+      "phrases": [
+        "Claude"
+      ]
+    },
+    {
+      "id": "copilot_unspecified",
+      "label": "Copilot unspecified",
+      "category": "tool",
+      "phrases": [
+        "Copilot"
+      ]
+    },
+    {
+      "id": "cursor",
+      "label": "Cursor",
+      "category": "tool",
+      "phrases": [
+        "Cursor"
+      ]
+    },
+    {
+      "id": "codex",
+      "label": "Codex",
+      "category": "tool",
+      "phrases": [
+        "Codex"
+      ]
+    },
+    {
+      "id": "gemini",
+      "label": "Gemini",
+      "category": "tool",
+      "phrases": [
+        "Gemini"
+      ]
+    },
+    {
+      "id": "zapier",
+      "label": "Zapier",
+      "category": "tool",
+      "phrases": [
+        "Zapier"
+      ]
+    },
+    {
+      "id": "make_unspecified",
+      "label": "Make unspecified",
+      "category": "tool",
+      "phrases": [
+        "Make.com"
+      ]
+    },
+    {
+      "id": "n8n",
+      "label": "N8n",
+      "category": "tool",
+      "phrases": [
+        "n8n"
+      ]
+    },
+    {
+      "id": "excel",
+      "label": "Excel",
+      "category": "tool",
+      "phrases": [
+        "Excel"
+      ]
+    },
+    {
+      "id": "tableau",
+      "label": "Tableau",
+      "category": "tool",
+      "phrases": [
+        "Tableau"
+      ]
+    },
+    {
+      "id": "power_bi",
+      "label": "Power bi",
+      "category": "tool",
+      "phrases": [
+        "Power BI"
+      ]
+    },
+    {
+      "id": "snowflake",
+      "label": "Snowflake",
+      "category": "tool",
+      "phrases": [
+        "Snowflake"
+      ]
+    }
+  ]
+}
