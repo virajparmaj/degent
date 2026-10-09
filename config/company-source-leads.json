@@ -1,0 +1,341 @@
+{
+  "version": 1,
+  "leads": [
+    {
+      "company_id": "company-6783ba025766dad2e8a770f4",
+      "url": "https://job-boards.greenhouse.io/adyen",
+      "reference_company_slug": "adyen",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "affirm",
+      "url": "https://job-boards.greenhouse.io/affirm",
+      "reference_company_slug": "affirm",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-2a595b210e27c0f43cd95569",
+      "url": "https://job-boards.greenhouse.io/alloy",
+      "reference_company_slug": "alloy",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "block",
+      "url": "https://job-boards.greenhouse.io/block",
+      "reference_company_slug": "block",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e9e411e648f15f8a61983c4d",
+      "url": "https://job-boards.greenhouse.io/brex",
+      "reference_company_slug": "brex",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "capital_one",
+      "url": "https://capitalone.wd12.myworkdayjobs.com/Capital_One",
+      "reference_company_slug": "capital-one",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-0a0ebea6e0149d9a251f9a95",
+      "url": "https://job-boards.greenhouse.io/clearstreet",
+      "reference_company_slug": "clear-street",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e27d61b4e99de0ed98163cb3",
+      "url": "https://job-boards.greenhouse.io/coinbase",
+      "reference_company_slug": "coinbase",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e27d61b4e99de0ed98163cb3",
+      "url": "https://job-boards.greenhouse.io/basejobs",
+      "reference_company_slug": "coinbase",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e27d61b4e99de0ed98163cb3",
+      "url": "https://job-boards.greenhouse.io/cdpjobs",
+      "reference_company_slug": "coinbase",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-10e110dcd81b331b9ca1bf8e",
+      "url": "https://jobs.ashbyhq.com/column",
+      "reference_company_slug": "column",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-635ec572d2b11a7ff874b741",
+      "url": "https://job-boards.greenhouse.io/creditkarma",
+      "reference_company_slug": "credit-karma",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-62e8643d84ab56a7ede5a68f",
+      "url": "https://job-boards.greenhouse.io/current81",
+      "reference_company_slug": "current",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-4fa00962187a3392eccc35d2",
+      "url": "https://jobs.ashbyhq.com/dave",
+      "reference_company_slug": "dave",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-d7d2484e8439a83af1ea10b4",
+      "url": "https://jobs.lever.co/finix",
+      "reference_company_slug": "finix",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-f3c38e0f572956fb0347c14d",
+      "url": "https://fiserv.wd5.myworkdayjobs.com/EXT",
+      "reference_company_slug": "fiserv",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-c42801d664ba571a4dc18337",
+      "url": "https://job-boards.greenhouse.io/happymoney",
+      "reference_company_slug": "happy-money",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-f00b76b86a2f4baa122344e8",
+      "url": "https://job-boards.greenhouse.io/wehrtyou",
+      "reference_company_slug": "hudson-river-trading",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-141e5cb64fbc326b76819f02",
+      "url": "https://job-boards.greenhouse.io/janestreet",
+      "reference_company_slug": "jane-street",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-09397c3a608e292e905f4c67",
+      "url": "https://jobs.lever.co/tryjeeves",
+      "reference_company_slug": "jeeves",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-40bac38e447c39f39db3f35b",
+      "url": "https://job-boards.greenhouse.io/jumptrading",
+      "reference_company_slug": "jump-trading",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-d4f5eb75d569c4b7ff8cb97b",
+      "url": "https://job-boards.greenhouse.io/lithic",
+      "reference_company_slug": "lithic",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-1a0a77df852aad6ad9d9f3a4",
+      "url": "https://job-boards.greenhouse.io/marqeta",
+      "reference_company_slug": "marqeta",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-d2df6e8a4ab3e118a8777b97",
+      "url": "https://mastercard.wd1.myworkdayjobs.com/CorporateCareers",
+      "reference_company_slug": "mastercard",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-4070e7fadb555d573ff6fda3",
+      "url": "https://job-boards.greenhouse.io/missionlane",
+      "reference_company_slug": "mission-lane",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-a1f499a94c3462de6342d32a",
+      "url": "https://job-boards.greenhouse.io/tripactions",
+      "reference_company_slug": "navan",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-2fe7a087cf5d325973f167df",
+      "url": "https://jobs.ashbyhq.com/nerdwallet",
+      "reference_company_slug": "nerdwallet",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-0b8d69625fcbb4aa7869489c",
+      "url": "https://job-boards.greenhouse.io/oportun",
+      "reference_company_slug": "oportun",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-83e9c3151322e6719ee890aa",
+      "url": "https://job-boards.greenhouse.io/optiverus",
+      "reference_company_slug": "optiver",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-33307e6d947d9535d04f3c29",
+      "url": "https://job-boards.greenhouse.io/pagaya",
+      "reference_company_slug": "pagaya",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-50fe67617afb4af5bf4e8e9d",
+      "url": "https://jobs.ashbyhq.com/parafin",
+      "reference_company_slug": "parafin",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "paypal",
+      "url": "https://paypal.wd1.myworkdayjobs.com/jobs",
+      "reference_company_slug": "paypal",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-0d27acc1d1290242b5d2c64c",
+      "url": "https://jobs.ashbyhq.com/perk",
+      "reference_company_slug": "travelperk",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-04cea180421fb5f77ab26d9a",
+      "url": "https://jobs.ashbyhq.com/plaid",
+      "reference_company_slug": "plaid",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-04cea180421fb5f77ab26d9a",
+      "url": "https://jobs.lever.co/plaid",
+      "reference_company_slug": "plaid",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-b7d743f86b4f985c29fba924",
+      "url": "https://jobs.ashbyhq.com/ramp",
+      "reference_company_slug": "ramp",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-cc1e1169ed725dd9adb0f006",
+      "url": "https://job-boards.greenhouse.io/robinhood",
+      "reference_company_slug": "robinhood",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "sofi",
+      "url": "https://job-boards.greenhouse.io/sofi",
+      "reference_company_slug": "sofi",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "stripe",
+      "url": "https://job-boards.greenhouse.io/stripe",
+      "reference_company_slug": "stripe",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e876c767f6b2f7abd43cdbc9",
+      "url": "https://job-boards.greenhouse.io/upgrade",
+      "reference_company_slug": "upgrade",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "upstart",
+      "url": "https://job-boards.greenhouse.io/upstart",
+      "reference_company_slug": "upstart",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-455ee687bba04f8b3ad62686",
+      "url": "https://visa.wd5.myworkdayjobs.com/Visa",
+      "reference_company_slug": "visa",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-0066d424c369cc03d95c3257",
+      "url": "https://job-boards.greenhouse.io/chime",
+      "reference_company_slug": "chime-financial-inc",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-860fe2020b6050bb1b2f1d4f",
+      "url": "https://job-boards.greenhouse.io/drwfr",
+      "reference_company_slug": "drw-montreal",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; matched supplied company website; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-60247b7ec0a44b2ba8de7645",
+      "url": "https://job-boards.greenhouse.io/enova",
+      "reference_company_slug": "enova-international",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; matched supplied company website; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-713bc442676c25614ebb0e83",
+      "url": "https://job-boards.greenhouse.io/imc",
+      "reference_company_slug": "imc",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; matched supplied company website; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-69da746d3972f97ef6067c64",
+      "url": "https://jobs.ashbyhq.com/moderntreasury",
+      "reference_company_slug": "moderntreasury",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; matched supplied company website; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    },
+    {
+      "company_id": "company-e0d8fe443efc7865a9c8d543",
+      "url": "https://job-boards.greenhouse.io/ocrolusinc",
+      "reference_company_slug": "ocrolus-inc",
+      "reference_revision": "56b32385877c622f7e188e64a1a0d8afbf4d07ab",
+      "provenance": "Jobseek selected target leads 2026-10-08; matched supplied company website; notices/Jobseek-JOB-DATA.txt; discovery candidate only"
+    }
+  ]
+}

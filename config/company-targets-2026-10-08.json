@@ -1,0 +1,862 @@
+{
+  "version": 1,
+  "title": "US Fintech & Quant Target List",
+  "date": "2026-10-08",
+  "provenance": "User-supplied target list; URLs, ownership notes and US opportunities not independently verified during import.",
+  "companies": [
+    {
+      "name": "Adyen",
+      "primary_focus": "Payments, risk analytics",
+      "website": "https://www.adyen.com",
+      "career_url": "https://careers.adyen.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Affirm",
+      "primary_focus": "BNPL, credit underwriting ML",
+      "website": "https://www.affirm.com",
+      "career_url": "https://www.affirm.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Airbase (Paylocity)",
+      "primary_focus": "Spend management, AP analytics",
+      "website": "https://www.airbase.com",
+      "career_url": "https://www.paylocity.com/careers/",
+      "aliases": [
+        "Airbase"
+      ],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": "User-supplied note: acquired by Paylocity; retained as a separate product research target."
+    },
+    {
+      "name": "Alloy",
+      "primary_focus": "Fraud, identity, risk decisioning",
+      "website": "https://www.alloy.com",
+      "career_url": "https://www.alloy.com/about/jobs",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Avant",
+      "primary_focus": "Consumer lending, credit risk",
+      "website": "https://www.avant.com",
+      "career_url": "https://www.avant.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Best Egg",
+      "primary_focus": "Consumer lending, credit analytics",
+      "website": "https://www.bestegg.com",
+      "career_url": "https://www.bestegg.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": "User-supplied note: acquired by Barclays and retains its brand."
+    },
+    {
+      "name": "BHG Financial",
+      "primary_focus": "Lending, credit underwriting",
+      "website": "https://www.bhgfinancial.com",
+      "career_url": "https://www.bhgfinancial.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Bilt Rewards",
+      "primary_focus": "Credit cards, rewards, analytics",
+      "website": "https://www.bilt.com",
+      "career_url": "https://www.bilt.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Block (Square, Cash App)",
+      "primary_focus": "Payments, fraud ML, credit risk",
+      "website": "https://block.xyz",
+      "career_url": "https://block.xyz/careers",
+      "aliases": [
+        "Block",
+        "Square",
+        "Cash App"
+      ],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Brex",
+      "primary_focus": "Corporate cards, credit risk",
+      "website": "https://www.brex.com",
+      "career_url": "https://www.brex.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": "User-supplied note: announced an agreement to be acquired by Capital One in January 2026."
+    },
+    {
+      "name": "Capital One",
+      "primary_focus": "Credit risk, decision science, AI",
+      "website": "https://www.capitalone.com",
+      "career_url": "https://www.capitalonecareers.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Chime",
+      "primary_focus": "Neobanking, risk data science",
+      "website": "https://www.chime.com",
+      "career_url": "https://www.chime.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Circle",
+      "primary_focus": "Stablecoins, compliance, risk",
+      "website": "https://www.circle.com",
+      "career_url": "https://careers.circle.com/us/en/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Citadel",
+      "primary_focus": "Quant research, hedge fund",
+      "website": "https://www.citadel.com",
+      "career_url": "https://www.citadel.com/careers/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Clear Street",
+      "primary_focus": "Brokerage infrastructure, quant risk",
+      "website": "https://www.clearstreet.io",
+      "career_url": "https://www.clearstreet.io/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Coast",
+      "primary_focus": "Fleet payments, risk analytics",
+      "website": "https://coastpay.com",
+      "career_url": "https://coastpay.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Coinbase",
+      "primary_focus": "Crypto, fraud ML, risk analytics",
+      "website": "https://www.coinbase.com",
+      "career_url": "https://www.coinbase.com/careers/positions",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Column",
+      "primary_focus": "Banking infrastructure, risk strategy",
+      "website": "https://column.com",
+      "career_url": "https://column.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Credit Karma",
+      "primary_focus": "Credit analytics, recommendations",
+      "website": "https://www.creditkarma.com",
+      "career_url": "https://www.creditkarma.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Current",
+      "primary_focus": "Neobanking, risk analytics",
+      "website": "https://current.com",
+      "career_url": "https://current.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "DailyPay",
+      "primary_focus": "Earned wage access, analytics",
+      "website": "https://www.dailypay.com",
+      "career_url": "https://www.dailypay.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Dave",
+      "primary_focus": "Underwriting ML, credit science",
+      "website": "https://dave.com",
+      "career_url": "https://dave.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Discover (Capital One)",
+      "primary_focus": "Credit risk, card analytics",
+      "website": "https://www.discover.com",
+      "career_url": "https://www.capitalonecareers.com/discover",
+      "aliases": [
+        "Discover"
+      ],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": "User-supplied note: part of Capital One; retained as a separate research target. Shared recruiting site requires Discover-specific collection support."
+    },
+    {
+      "name": "DRW",
+      "primary_focus": "Quant research, proprietary trading",
+      "website": "https://www.drw.com",
+      "career_url": "https://www.drw.com/work-at-drw",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Dwolla",
+      "primary_focus": "Payment infrastructure, analytics",
+      "website": "https://www.dwolla.com",
+      "career_url": "https://www.dwolla.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Enova",
+      "primary_focus": "Online lending, risk analytics",
+      "website": "https://www.enova.com",
+      "career_url": "https://www.enova.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Finix",
+      "primary_focus": "Payment infrastructure, data science",
+      "website": "https://finix.com",
+      "career_url": "https://finix.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "FIS",
+      "primary_focus": "Banking technology, risk analytics",
+      "website": "https://www.fisglobal.com",
+      "career_url": "https://careers.fisglobal.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Fiserv",
+      "primary_focus": "Payment technology, analytics",
+      "website": "https://www.fiserv.com",
+      "career_url": "https://careers.fiserv.com/us/en",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Flex (Flexbase)",
+      "primary_focus": "Business banking, credit risk",
+      "website": "https://www.flex.one",
+      "career_url": "https://jobs.lever.co/Flex/",
+      "aliases": [
+        "Flex",
+        "Flexbase"
+      ],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Freehand",
+      "primary_focus": "Enterprise spend AI, applied ML",
+      "website": "https://www.freehand.ai",
+      "career_url": "https://www.freehand.ai/career",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Fundbox",
+      "primary_focus": "SMB lending, credit modeling",
+      "website": "https://fundbox.com",
+      "career_url": "https://fundbox.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Green Dot",
+      "primary_focus": "Digital banking, fraud analytics",
+      "website": "https://www.greendot.com",
+      "career_url": "https://www.greendot.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Happy Money",
+      "primary_focus": "Credit risk, loss forecasting",
+      "website": "https://www.happymoney.com",
+      "career_url": "https://job-boards.greenhouse.io/happymoney",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Hudson River Trading",
+      "primary_focus": "Quant research, systematic trading",
+      "website": "https://www.hudsonrivertrading.com",
+      "career_url": "https://www.hudsonrivertrading.com/careers/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "IMC Trading",
+      "primary_focus": "Quant research, trading ML",
+      "website": "https://www.imc.com",
+      "career_url": "https://www.imc.com/us/careers/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Imprint",
+      "primary_focus": "Credit cards, credit risk DS",
+      "website": "https://imprint.co",
+      "career_url": "https://imprint.co/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Increase",
+      "primary_focus": "Banking APIs, financial data",
+      "website": "https://increase.com",
+      "career_url": "https://increase.com/articles/how-we-work",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "hiring_info",
+      "notes": "Hiring contact information rather than a conventional job board."
+    },
+    {
+      "name": "Intuit",
+      "primary_focus": "Financial ML, credit, product analytics",
+      "website": "https://www.intuit.com",
+      "career_url": "https://www.intuit.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Jane Street",
+      "primary_focus": "Quant research, trading",
+      "website": "https://www.janestreet.com",
+      "career_url": "https://www.janestreet.com/join-jane-street/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Jeeves",
+      "primary_focus": "Corporate cards, finance AI",
+      "website": "https://www.tryjeeves.com",
+      "career_url": "https://www.tryjeeves.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Jump Trading",
+      "primary_focus": "Quant research, systematic trading",
+      "website": "https://www.jumptrading.com",
+      "career_url": "https://www.jumptrading.com/careers/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Lendbuzz",
+      "primary_focus": "AI auto lending, underwriting ML",
+      "website": "https://www.lendbuzz.com",
+      "career_url": "https://www.lendbuzz.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "LendingClub",
+      "primary_focus": "Consumer lending, credit modeling",
+      "website": "https://www.lendingclub.com",
+      "career_url": "https://careers.lendingclub.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Lithic",
+      "primary_focus": "Card infrastructure, risk analytics",
+      "website": "https://www.lithic.com",
+      "career_url": "https://www.lithic.com/about/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "M1 Finance",
+      "primary_focus": "Investing, portfolio analytics",
+      "website": "https://m1.com",
+      "career_url": "https://m1.com/about/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Marqeta",
+      "primary_focus": "Card issuing, credit and fraud risk",
+      "website": "https://www.marqeta.com",
+      "career_url": "https://www.marqeta.com/company/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Mastercard",
+      "primary_focus": "Payment risk, fraud AI, analytics",
+      "website": "https://www.mastercard.com",
+      "career_url": "https://careers.mastercard.com/us/en/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Mercury",
+      "primary_focus": "Business banking, underwriting",
+      "website": "https://mercury.com",
+      "career_url": "https://mercury.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Method Financial",
+      "primary_focus": "Financial data, liabilities APIs",
+      "website": "https://methodfi.com",
+      "career_url": "https://methodfi.com/company/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Mission Lane",
+      "primary_focus": "Credit cards, decision science",
+      "website": "https://www.missionlane.com",
+      "career_url": "https://www.missionlane.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Modern Treasury",
+      "primary_focus": "Payments, financial infrastructure",
+      "website": "https://www.moderntreasury.com",
+      "career_url": "https://jobs.ashbyhq.com/moderntreasury",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Moov",
+      "primary_focus": "Embedded payments, infrastructure",
+      "website": "https://moov.io",
+      "career_url": "https://moov.io/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Morningstar",
+      "primary_focus": "Investment research, quant analysis",
+      "website": "https://www.morningstar.com",
+      "career_url": "https://jobs.morningstar.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "MX Technologies",
+      "primary_focus": "Open finance, data analytics",
+      "website": "https://www.mx.com",
+      "career_url": "https://www.mx.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Navan",
+      "primary_focus": "Travel/expense, fraud risk analytics",
+      "website": "https://navan.com",
+      "career_url": "https://navan.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "NerdWallet",
+      "primary_focus": "Consumer finance, product analytics",
+      "website": "https://www.nerdwallet.com",
+      "career_url": "https://www.nerdwallet.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Ocrolus",
+      "primary_focus": "Credit document AI, applied ML",
+      "website": "https://www.ocrolus.com",
+      "career_url": "https://www.ocrolus.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "OnePay",
+      "primary_focus": "Consumer fintech, credit analytics",
+      "website": "https://www.onepay.com",
+      "career_url": "https://www.onepay.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Oportun",
+      "primary_focus": "Consumer lending, credit risk",
+      "website": "https://oportun.com",
+      "career_url": "https://oportun.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Optiver",
+      "primary_focus": "Quant research, proprietary trading",
+      "website": "https://optiver.com",
+      "career_url": "https://optiver.com/working-at-optiver/career-opportunities/",
+      "aliases": [],
+      "group": "quant-trading",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Pagaya",
+      "primary_focus": "AI credit network, quantitative analytics",
+      "website": "https://pagaya.com",
+      "career_url": "https://pagaya.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Parafin",
+      "primary_focus": "Embedded lending, underwriting ML",
+      "website": "https://www.parafin.com",
+      "career_url": "https://jobs.ashbyhq.com/parafin",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "PayPal",
+      "primary_focus": "Payment risk, fraud ML",
+      "website": "https://www.paypal.com",
+      "career_url": "https://careers.pypl.com/home/default.aspx",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Perk (formerly TravelPerk)",
+      "primary_focus": "Travel/spend management, analytics",
+      "website": "https://www.perk.com",
+      "career_url": "https://www.perk.com/careers/",
+      "aliases": [
+        "Perk",
+        "TravelPerk"
+      ],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "PEX",
+      "primary_focus": "Expense management, analytics",
+      "website": "https://www.pexcard.com",
+      "career_url": "https://www.pexcard.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Pinwheel",
+      "primary_focus": "Income data, lending infrastructure",
+      "website": "https://www.pinwheelapi.com",
+      "career_url": "https://www.pinwheelapi.com/about/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Plaid",
+      "primary_focus": "Financial data, fraud analytics",
+      "website": "https://plaid.com",
+      "career_url": "https://plaid.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "QED Investors",
+      "primary_focus": "Fintech VC, investment research",
+      "website": "https://www.qedinvestors.com",
+      "career_url": "https://careers.qedinvestors.com/jobs",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "portfolio_jobs",
+      "notes": "Portfolio-company job board; not confirmed openings at QED itself."
+    },
+    {
+      "name": "Ramp",
+      "primary_focus": "Corporate spend, credit risk ML",
+      "website": "https://ramp.com",
+      "career_url": "https://ramp.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Rho",
+      "primary_focus": "Business banking, risk analytics",
+      "website": "https://www.rho.co",
+      "career_url": "https://www.rho.co/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Robinhood",
+      "primary_focus": "Brokerage, credit and model risk",
+      "website": "https://robinhood.com",
+      "career_url": "https://careers.robinhood.com",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Sardine",
+      "primary_focus": "Fraud detection, risk AI, AML",
+      "website": "https://www.sardine.ai",
+      "career_url": "https://www.sardine.ai/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Slash",
+      "primary_focus": "Business banking, applied AI",
+      "website": "https://www.slash.com",
+      "career_url": "https://www.slash.com/company/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "SoFi",
+      "primary_focus": "Banking, credit risk, data science",
+      "website": "https://www.sofi.com",
+      "career_url": "https://www.sofi.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Stripe",
+      "primary_focus": "Payments, fraud ML, risk DS",
+      "website": "https://stripe.com",
+      "career_url": "https://stripe.com/jobs",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Tala",
+      "primary_focus": "Alternative credit, underwriting ML",
+      "website": "https://tala.co",
+      "career_url": "https://tala.co/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Tradeweb",
+      "primary_focus": "Electronic trading, quant analytics",
+      "website": "https://www.tradeweb.com",
+      "career_url": "https://www.tradeweb.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Treasury Prime",
+      "primary_focus": "Embedded banking, risk analytics",
+      "website": "https://www.treasuryprime.com",
+      "career_url": "https://www.treasuryprime.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Unit",
+      "primary_focus": "Banking-as-a-service, compliance",
+      "website": "https://www.unit.co",
+      "career_url": "https://www.unit.co/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Upgrade",
+      "primary_focus": "Consumer lending, credit data science",
+      "website": "https://www.upgrade.com",
+      "career_url": "https://www.upgrade.com/careers/",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Upstart",
+      "primary_focus": "AI lending, credit risk ML",
+      "website": "https://www.upstart.com",
+      "career_url": "https://www.upstart.com/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Visa",
+      "primary_focus": "Payments, fraud analytics, AI",
+      "website": "https://www.visa.com",
+      "career_url": "https://corporate.visa.com/en/careers.html",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    },
+    {
+      "name": "Zest AI",
+      "primary_focus": "Credit underwriting ML, model validation",
+      "website": "https://www.zest.ai",
+      "career_url": "https://www.zest.ai/careers",
+      "aliases": [],
+      "group": "fintech-finance",
+      "career_link_type": "careers",
+      "notes": ""
+    }
+  ]
+}
