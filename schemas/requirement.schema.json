@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["document_id", "requirements"],
+  "properties": {
+    "document_id": {"type": "string"},
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "phrase", "status", "explicit", "evidence"],
+        "properties": {
+          "category": {"type": "string"},
+          "phrase": {"type": "string"},
+          "concept": {"type": ["string", "null"]},
+          "status": {"enum": ["required", "preferred", "unclear"]},
+          "explicit": {"type": "boolean"},
+          "evidence": {"type": "string"},
+          "section": {"type": ["string", "null"]},
+          "qualifier": {"type": ["string", "null"]},
+          "experience_years": {"type": ["number", "null"]},
+          "alternatives": {"type": "array", "items": {"type": "string"}},
+          "negated": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

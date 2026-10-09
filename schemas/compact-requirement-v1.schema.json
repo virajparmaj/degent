@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "required": [
+    "r"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "r": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "u",
+          "span",
+          "c",
+          "s",
+          "k"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "u": {
+            "type": "string"
+          },
+          "span": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "c": {
+            "type": "string"
+          },
+          "s": {
+            "enum": [
+              "not_required",
+              "preferred",
+              "required",
+              "unclear"
+            ]
+          },
+          "k": {
+            "enum": [
+              "company_description",
+              "company_expectation",
+              "hiring_process",
+              "qualification",
+              "responsibility",
+              "unknown"
+            ]
+          },
+          "t": {
+            "enum": [
+              "technical",
+              "tool",
+              "domain",
+              "people_skills",
+              "work_habits",
+              "ai_use",
+              "ai_engineering",
+              "experience",
+              "education",
+              "certification",
+              "other"
+            ]
+          },
+          "q": {
+            "type": "string"
+          },
+          "y": {
+            "type": "array",
+            "items": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "a": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "op": {
+            "enum": [
+              "or",
+              "and"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

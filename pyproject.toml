@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "degent-research"
+version = "0.1.0"
+description = "Auditable historical fintech job requirement research pipeline"
+requires-python = ">=3.11"
+dependencies = ["beautifulsoup4>=4.12,<5"]
+
+[project.optional-dependencies]
+archive = ["warcio>=1.7"]
+test = ["pytest>=8"]
+browser = ["playwright>=1.48,<2"]
+
+[project.scripts]
+degent = "degent.cli:main"
+degent-dashboard = "degent.dashboard:main"
+
+[tool.setuptools.packages.find]
+include = ["degent*"]
+
+[tool.setuptools.package-data]
+degent = ["web/*.html", "web/*.css", "web/*.js"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

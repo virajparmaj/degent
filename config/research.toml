@@ -1,0 +1,158 @@
+timezone = "America/Chicago"
+current_request_cap = 100
+# New runs collect inventory without a document target. Optional positive limit:
+# current_document_cap = 10
+collection_runtime_seconds = 120
+collection_byte_cap = 50_000_000
+collection_storage_cap = 100_000_000
+collection_response_bytes = 8_000_000
+collection_chunk_size = 25
+import_document_cap = 60
+model_call_cap = 40
+model_retry_cap = 2
+sources = ["archives", "current"]
+comparison_review = "reviewed"
+comparison_status = "required_or_preferred"
+comparison_scope = "qualification"
+combinations = [["sql", "communication"], ["initiative", "everyday_ai_use"]]
+data_dir = "data"
+run_dir = "runs"
+discovery_request_cap = 300
+body_attempt_cap = 150
+per_employer_body_attempts = 25
+request_timeout_seconds = 30
+retry_count = 2
+host_delay_seconds = 2
+codex_model = "gpt-6-luna"
+codex_effort = "high"
+review_model = "gpt-6.1-sol"
+review_effort = "medium"
+extract_document_cap = 30
+initial_review_documents = 10
+semantic_review_call_cap = 10
+firecrawl_credit_cap = 20
+
+[[periods]]
+id = "2023-H1"
+start = "2023-01-01"
+end = "2023-06-30"
+kind = "completed"
+[[periods]]
+id = "2023-H2"
+start = "2023-07-01"
+end = "2023-12-31"
+kind = "completed"
+[[periods]]
+id = "2024-H1"
+start = "2024-01-01"
+end = "2024-06-30"
+kind = "completed"
+[[periods]]
+id = "2024-H2"
+start = "2024-07-01"
+end = "2024-12-31"
+kind = "completed"
+[[periods]]
+id = "2025-Q1"
+start = "2025-01-01"
+end = "2025-03-31"
+kind = "completed"
+[[periods]]
+id = "2025-Q2"
+start = "2025-04-01"
+end = "2025-06-30"
+kind = "completed"
+[[periods]]
+id = "2025-Q3"
+start = "2025-07-01"
+end = "2025-09-30"
+kind = "completed"
+[[periods]]
+id = "2025-Q4"
+start = "2025-10-01"
+end = "2025-12-31"
+kind = "completed"
+[[periods]]
+id = "2026-Q1"
+start = "2026-01-01"
+end = "2026-03-31"
+kind = "completed"
+[[periods]]
+id = "2026-Q2"
+start = "2026-04-01"
+end = "2026-06-30"
+kind = "completed"
+[[periods]]
+id = "2026-Q3"
+start = "2026-07-01"
+end = "2026-09-30"
+kind = "completed"
+[[periods]]
+id = "2026-PARTIAL-Q4"
+start = "2026-10-01"
+end = "2026-10-07"
+kind = "partial"
+
+[[employers]]
+id = "capital_one"
+website = "https://www.capitalone.com"
+name = "Capital One"
+group = "lending-consumer-finance"
+current_sources = [{provider = "capital_one", board = "capitalonecareers", keywords = ["credit", "underwriting", "quantitative"], max_pages = 4}]
+paths = ["www.capitalonecareers.com/job/*", "capitalonecareers.com/job/*"]
+
+[[employers]]
+id = "stripe"
+website = "https://stripe.com"
+current_sources = [{provider = "greenhouse", board = "stripe", url = "https://boards.greenhouse.io/stripe", status = "unverified", provenance = "jobseek-selected-leads-2026-10-08-v1; notices/Jobseek-JOB-DATA.txt"}]
+name = "Stripe"
+group = "payments-infrastructure"
+paths = ["stripe.com/jobs/*", "stripe.com/careers/*", "boards.greenhouse.io/stripe/*", "jobs.lever.co/stripe/*"]
+[[employers]]
+id = "paypal"
+website = "https://www.paypal.com"
+current_sources = [{provider = "workday", board = "paypal/jobs", company = "paypal", wd_instance = "wd1", site = "jobs", url = "https://paypal.wd1.myworkdayjobs.com/jobs", status = "unverified", provenance = "jobseek-selected-leads-2026-10-08-v1; notices/Jobseek-JOB-DATA.txt"}]
+name = "PayPal"
+group = "payments-infrastructure"
+paths = ["paypal.com/us/webapps/mpp/jobs/*", "paypal.eightfold.ai/careers/job/*", "jobs.lever.co/paypal/*"]
+[[employers]]
+id = "block"
+website = "https://block.xyz"
+aliases = ["Square"]
+current_sources = [{provider = "greenhouse", board = "block", url = "https://boards.greenhouse.io/block", status = "unverified", provenance = "jobseek-selected-leads-2026-10-08-v1; notices/Jobseek-JOB-DATA.txt"}]
+name = "Block"
+group = "payments-infrastructure"
+paths = ["block.xyz/careers/jobs/*", "careers.squareup.com/us/en/jobs/*", "block.xyz/jobs/*"]
+[[employers]]
+id = "affirm"
+website = "https://www.affirm.com"
+current_sources = [{provider = "greenhouse", board = "affirm"}]
+name = "Affirm"
+group = "lending-consumer-finance"
+paths = ["job-boards.greenhouse.io/affirm/jobs/*", "boards.greenhouse.io/affirm/jobs/*", "affirm.com/careers/*"]
+[[employers]]
+id = "upstart"
+website = "https://www.upstart.com"
+# The previous Greenhouse board returned 404 on 2026-10-07.
+# Current career site: https://careers.upstart.com/jobs/search (adapter pending).
+name = "Upstart"
+group = "lending-consumer-finance"
+paths = ["boards.greenhouse.io/upstartnetwork/jobs/*", "jobs.lever.co/upstart/*", "upstart.com/careers/*"]
+[[employers]]
+id = "sofi"
+website = "https://www.sofi.com"
+current_sources = [{provider = "greenhouse", board = "sofi"}]
+name = "SoFi"
+group = "lending-consumer-finance"
+paths = ["careers.sofi.com/*", "boards.greenhouse.io/sofi/jobs/*", "jobs.lever.co/sofi/*"]
+
+[archives]
+wayback_cdx = "https://web.archive.org/cdx/search/cdx"
+commoncrawl_catalogue = "https://index.commoncrawl.org/collinfo.json"
+commoncrawl_index_template = "https://index.commoncrawl.org/{collection}-index"
+user_agent = "degent-research/0.1 (polite public archive research)"
+
+[roles]
+tracks = ["fraud_analytics_strategy", "credit_risk_analytics", "quantitative_credit_risk_capital_modeling"]
+entry_mid_levels = ["entry", "mid"]
+exclude = ["investigative fraud", "AML casework", "FP&A", "trading quant", "manager", "intern", "staffing agency", "ML infrastructure"]

@@ -1,0 +1,10 @@
+{
+  "Python": "python",
+  "R programming": "r",
+  "SQL": "sql",
+  "machine learning": "machine_learning",
+  "fraud analytics": "fraud_analytics",
+  "credit risk": "credit_risk",
+  "statistical modeling": "statistical_modeling",
+  "quantitative modeling": "quantitative_modeling"
+}

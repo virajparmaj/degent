@@ -1,0 +1,422 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:degent:comparison-contract:v1",
+  "title": "Canonical comparison record families",
+  "description": "Validate individual artifact records using the matching $defs reference. Full text/raw description are immutable hash-bound files, not copied into every requirement. Existing legacy fields are retained.",
+  "version": "comparison-contract-v1",
+  "$defs": {
+    "dateAssertion": {
+      "type": "object",
+      "required": [
+        "raw",
+        "provenance",
+        "date",
+        "uncertainty"
+      ],
+      "properties": {
+        "raw": {},
+        "provenance": {},
+        "date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uncertainty": {
+          "type": "string"
+        }
+      }
+    },
+    "observation": {
+      "type": "object",
+      "required": [
+        "vacancy_id",
+        "document_id",
+        "content_version_id",
+        "observation_id",
+        "employer_id",
+        "title",
+        "clean_file",
+        "clean_sha256",
+        "raw_file",
+        "parser_version",
+        "capture_date",
+        "eligible",
+        "inclusion_decision",
+        "inclusion_reason",
+        "seniority_evidence",
+        "structured_locations",
+        "publication_date_evidence",
+        "update_date_evidence",
+        "publication_period_id",
+        "capture_period_id",
+        "collector_first_observed_at",
+        "version_first_observed_at",
+        "wording_validity",
+        "brand_id",
+        "employment_type_evidence"
+      ],
+      "properties": {
+        "vacancy_id": {
+          "type": "string"
+        },
+        "document_id": {
+          "type": "string"
+        },
+        "content_version_id": {
+          "type": "string"
+        },
+        "observation_id": {
+          "type": "string"
+        },
+        "url_aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "requisition_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "publication_date_evidence": {
+          "$ref": "#/$defs/dateAssertion"
+        },
+        "update_date_evidence": {
+          "$ref": "#/$defs/dateAssertion"
+        },
+        "publication_period_id": {
+          "type": "string",
+          "pattern": "^(PRE-2022|UNKNOWN|20[0-9]{2}-(Q[1-4]|H[12]))$"
+        },
+        "capture_period_id": {
+          "type": "string",
+          "pattern": "^(PRE-2022|UNKNOWN|20[0-9]{2}-(Q[1-4]|H[12]))$"
+        },
+        "eligible": {
+          "type": "boolean"
+        },
+        "description_completeness": {
+          "enum": [
+            "unreviewed",
+            "partial",
+            "complete"
+          ]
+        },
+        "level": {
+          "type": "string"
+        },
+        "role_group_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "taxonomy_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "sourceUnit": {
+      "type": "object",
+      "required": [
+        "unit_id",
+        "source_sha256",
+        "start",
+        "end",
+        "text",
+        "section",
+        "statement_scope",
+        "selected",
+        "selection_reason"
+      ],
+      "properties": {
+        "start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text": {
+          "type": "string"
+        },
+        "selected": {
+          "type": "boolean"
+        },
+        "section": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "statement_scope": {
+          "enum": [
+            "qualification",
+            "responsibility",
+            "company_expectation",
+            "company_description",
+            "hiring_process",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "requirement": {
+      "type": "object",
+      "required": [
+        "unit_id",
+        "evidence",
+        "evidence_start",
+        "evidence_end",
+        "concept",
+        "original_concept",
+        "category",
+        "status",
+        "statement_scope",
+        "experience_range",
+        "alternatives",
+        "alternative_logic"
+      ],
+      "properties": {
+        "concept": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "required",
+            "preferred",
+            "not_required",
+            "unclear"
+          ]
+        },
+        "evidence_start": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evidence_end": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "experience_range": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          ]
+        },
+        "alternative_logic": {
+          "enum": [
+            "or",
+            "and",
+            null
+          ]
+        },
+        "alternatives": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "assessment": {
+      "type": "object",
+      "required": [
+        "document_id",
+        "source_sha256",
+        "accepted",
+        "method_signature",
+        "model_signature",
+        "normalization_signature",
+        "requirements",
+        "wire_output",
+        "requires_omission_audit"
+      ],
+      "properties": {
+        "accepted": {
+          "type": "boolean"
+        },
+        "requirements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/requirement"
+          }
+        },
+        "requires_omission_audit": {
+          "const": true
+        },
+        "method_signature": {
+          "type": "string"
+        },
+        "review_status": {
+          "type": "string"
+        }
+      }
+    },
+    "definition": {
+      "type": "object",
+      "required": [
+        "name",
+        "definition",
+        "approved"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "definition": {
+          "type": "string"
+        },
+        "approved": {
+          "type": "boolean"
+        },
+        "supersedes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "supporting_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "document_id",
+              "source_sha256",
+              "quote"
+            ],
+            "properties": {
+              "quote": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "cell": {
+      "type": "object",
+      "required": [
+        "time_basis",
+        "period",
+        "role_group_id",
+        "level",
+        "employment_type",
+        "assessment_basis",
+        "concept",
+        "requirement_status",
+        "assessed_vacancies",
+        "count",
+        "unresolved_vacancies",
+        "method_versions",
+        "share_percent"
+      ],
+      "properties": {
+        "time_basis": {
+          "enum": [
+            "capture_period",
+            "publication_observed_today"
+          ]
+        },
+        "assessment_basis": {
+          "enum": [
+            "human_reviewed",
+            "evaluated_automated"
+          ]
+        },
+        "period": {
+          "type": "string",
+          "pattern": "^(PRE-2022|UNKNOWN|20[0-9]{2}-(Q[1-4]|H[12]))$"
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "assessed_vacancies": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "share_percent": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "company": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "website",
+        "current_sources"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "current_sources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/companySource"
+          }
+        }
+      }
+    },
+    "companySource": {
+      "type": "object",
+      "required": [
+        "provider",
+        "ownership_basis",
+        "ownership_evidence"
+      ],
+      "properties": {
+        "provider": {
+          "const": "capital_one"
+        },
+        "board": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "ownership_basis": {
+          "type": "string"
+        },
+        "ownership_evidence": {
+          "type": "array"
+        }
+      }
+    }
+  }
+}
