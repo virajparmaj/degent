@@ -1,7 +1,6 @@
 # Company library and manual capture sessions
 
-Implemented October 8, 2026. See [initial integration plan](company-collection-plan.md) and
-[reference attribution](../notices/README.md). This extends the existing local research workflow;
+See [reference attribution](../../notices/README.md). This extends the local research workflow;
 it introduces no hosted service or recurring scheduler. Static selectors use BeautifulSoup; Playwright is optional.
 
 ## Use the app
@@ -43,41 +42,18 @@ copy human approvals or turn the two studies into one cohort. Capture history ca
 
 ## CLI
 
-### Supplied target list imported October 8, 2026
+### Supplied targets and local library
 
-The [84-company source list](../config/company-targets-2026-10-08.json) was imported into
-this checkout's `data/company-library/companies.json`: 77 additions and seven existing entries
-enriched without changing their IDs, business groups or existing source verification. The local
-library now contains 84 distinct companies, including seven quant/trading firms. Websites,
-careers destinations, primary focuses, aliases and supplied notes are retained. New classifications
-come from the supplied list and do not establish research comparability.
+The [84-company source list](../../config/company-targets-2026-10-08.json) is a reference
+snapshot. A fresh checkout starts from the seven-company research configuration; the actual
+selectable library is stored locally in `data/company-library/companies.json`. Library edits
+apply to future runs and do not change existing frozen scopes.
 
-Discover remains separate from Capital One. Its shared recruiting destination is unsupported
-for collection until Discover-specific filtering is implemented. Increase is labeled `hiring_info`;
-QED Investors is labeled `portfolio_jobs`, with no archive paths assigned to either destination.
-Supplied acquisition notes and new links were not independently verified. Supported explicit ATS
-links remain unverified until a separate source check; unsupported destinations remain available
-for discovery. Stripe's existing verified source is preserved.
-
-The import changes the selectable library for future runs. Existing run scopes and the default
-seven-employer research configuration are unchanged. The source JSON is a reference snapshot;
-a fresh checkout still starts from the original seven-company seed. Local library data remains
-ignored by Git. Validation checked the 84 unique identities/domains, all supplied destinations,
-preserved source records, alias lookup and pagination without network or model calls.
-
-The initial baseline verification on October 8 processed all 84 companies: 17 had a verified
-source, three were unverified (Modern Treasury, Parafin and PayPal), one was unavailable
-(Jump Trading), and 63 were unsupported by the initial collectors/discovery. Per-company JSON,
-CSV and Markdown results and the pre-verification library snapshot are saved locally under
-`data/company-library/verification-2026-10-08T17-48-51.342168+00-00/`.
-That baseline did not follow redirects. The broader workflow below validates redirects; neither pass establishes absence of openings.
-
-The baseline live pass exposed Discover linking to Capital One's shared Workday board. Source verification
-now rejects a discovered board already assigned to another library company, records the conflict,
-and preserves existing library metadata. Discover was rechecked and remains unsupported rather
-than collecting Capital One's general inventory under Discover. Ten company-library/HTTP tests
-passed, including a regression for a subsidiary linking to its parent's board. No description
-collection or model extraction was run.
+Source leads, supplied classifications, and related recruiting destinations require separate
+verification. A reachable board does not establish employer ownership, research comparability,
+or complete inventory. The verifier records conflicts when another company already owns a board.
+Use the batch commands below with `--targets` to check a supplied target list. Verification
+reports, attempts, snapshots, and evidence remain under ignored `data/company-library/`.
 
 Use the same config for related runs so they share the library and snapshot store.
 
@@ -312,10 +288,10 @@ or unavailable confinement are explicit and keep unsafe rendering disabled. HTTP
 continue without browser dependencies. Browser-fixture transports exist only in tests.
 
 
-## October 8 broader acceptance outcome
+## Inspect verification results
 
-All 84 frozen targets have reconciled results: **65 verified, 13 unsupported, five unverified and one unavailable**, compared with the 17-verified baseline. The original 17 remain verified, including Stripe. Separate acceptance counts are 82 completed checks, two deferred checks (DRW and MX Technologies), and zero unprocessed targets. See [the acceptance audit](company-source-acceptance-2026-10-08.md) for all unresolved next actions, source distribution, sample inspections and remaining adapters.
-
-The batch used 1,598 requests, 378,430,482 bytes and 1,733.021 active seconds within the three-hour aggregate allowance. It preserved 84 IDs, all original company/source metadata, all 135 saved-run files and the seven-employer default scope. No research collection, new research runs or model extraction occurred. JSON/CSV/Markdown reports, complete before-library snapshot, attempts, bounded hashed evidence and validation logs are under `data/company-library/verification-2026-10-08T19-00-27.618920+00-00/`.
-
-Final validation: 192 Python tests (184 passed; eight browser tests skipped in ordinary discovery), all eight optional browser integration tests passed separately, Node frontend checks passed, and `./desktop/build.sh` passed. Browser tests include a hung script, cancellation and descendant-process cleanup under the production network policy. Dashboard source details expose current dimensions/evidence, earlier attempts and prior successful checks separately; batch progress displays budgets and explicit deferred counts.
+Read each batch's JSON/CSV/Markdown reports for company statuses, deferred checks, provider
+coverage, resource usage, and next actions. Source details retain current evidence, earlier
+attempts, and prior successful checks separately. Check the actual local library before
+creating a study; a previous verification report does not prove current availability or
+complete employer inventory.

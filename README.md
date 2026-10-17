@@ -1,10 +1,10 @@
 # Degent — local historical research
 
-Degent collects and reviews current, archived, and imported job descriptions for US fintech roles. It keeps fraud analytics/strategy, credit-risk analytics, and quantitative credit/risk/capital modeling separate, and now recognizes people skills, work habits, and practical AI use alongside technical requirements. The local company library supports persistent manual additions, name/alias/domain search, multiple career boards and explicit source verification. The supplied 84-company fintech and quant target list has been imported into this checkout's local library; [the source list](config/company-targets-2026-10-08.json) is versioned separately from the seven-employer research configuration. Entry/mid levels remain the default; new runs can choose other supported levels.
+Degent collects and reviews current, archived, and imported job descriptions for US fintech roles. It keeps fraud analytics/strategy, credit-risk analytics, and quantitative credit/risk/capital modeling separate, and recognizes people skills, work habits, and practical AI use alongside technical requirements. The local company library supports persistent manual additions, name/alias/domain search, multiple career boards and explicit source verification. A supplied [84-company fintech and quant target list](config/company-targets-2026-10-08.json) is versioned separately from the seven-employer research configuration. Entry/mid levels remain the default; new runs can choose other supported levels.
 
-See [what is implemented and what remains](notes/capabilities-and-gaps.md) for the design-to-code audit, live evidence, priorities, and sources. Historical coverage is still unproven; the earlier historical run produced no eligible complete descriptions.
+See the [operating guides](notes/README.md) for application behavior, collection, comparison, and setup. Historical coverage must be established for each saved study before drawing time-based conclusions.
 
-The new [Capital One comparison study](notes/comparison-pipeline.md) covers public US analytics, credit/risk, quantitative modeling, data/AI and engineering roles across seniority. It enumerates the full accessible inventory, preserves source/version/date evidence and pauses at cumulative resource limits. Reviewed role definitions, full-text gold/audit packets and a skill heatmap keep unknowns and assessment bases explicit. OpenRouter is configured with an explicit approved model and a gitignored local `.env` key. Paid inference allowances and validation remain pending; the study cannot yet support validated skill percentages. The [implementation acceptance report](notes/comparison-implementation-acceptance.md) records the first bounded collection and remaining gates.
+The [Capital One comparison study](notes/guides/comparison-pipeline.md) covers public US analytics, credit/risk, quantitative modeling, data/AI and engineering roles across seniority. It enumerates accessible inventory, preserves source/version/date evidence and pauses at cumulative resource limits. Reviewed role definitions, full-text gold/audit packets and a skill heatmap keep unknowns and assessment bases explicit. OpenRouter requires an explicitly approved model and a local `.env` key. Paid inference and validated skill percentages require the study's separate authorization and quality gates.
 
 Create it from **+ New → Capital One knowledge study**, or use `degent --run-id new-study study create`. The guide documents collection, recovery, contracts, review and quality gates. Existing saved runs retain their original policies.
 
@@ -33,7 +33,7 @@ Use **+ New** to search/add companies, inspect and verify career boards, and sel
 
 **Review** saves append-only human decisions in `reviews.jsonl`, tied to the exact source hash and extraction version. Changing records keeps each draft separate. Saving a decision does not rewrite extraction evidence. **Build reports** applies current decisions to comparisons and exports. Changed extraction versions require fresh review; stale reports are labeled for rebuilding.
 
-The supplied `degent_mosaic_states.html` and reference screenshots remain design references. The connected application is implemented in `degent/web/` and `degent/dashboard.py`. Its counts, source text and downloads come from local run files. An operation completing does not imply sufficient eligible evidence; later stages show an explicit empty state when necessary.
+The connected application is implemented in `degent/web/` and `degent/dashboard.py`. Its counts, source text and downloads come from local run files. An operation completing does not imply sufficient eligible evidence; later stages show an explicit empty state when necessary.
 
 ## Run the pipeline
 
@@ -55,8 +55,7 @@ Run output is stored under ignored `runs/<run-id>/`. Legacy bytes remain under `
 
 ## Company collection
 
-See [company-library workflow, CLI commands, storage and migration](notes/company-collection.md)
-and the [integration plan](notes/company-collection-plan.md).
+See [company-library workflow, CLI commands, storage and migration](notes/guides/company-collection.md).
 
 ```sh
 .venv/bin/python -m degent companies search stripe
@@ -77,7 +76,7 @@ Saved runs freeze selected company/source records. Library edits apply to future
 explicit scope continuation for an existing study. Fresh observations reuse unchanged content and
 compatible automatic extraction across runs, retain first-observed time, and preserve every changed
 version. Human approvals are never copied through the shared cache. Existing runs are readable and
-are not silently migrated. No live collection/model pilot was performed for this integration.
+are not silently migrated.
 Selected Jobseek leads and adapted Workday conventions have [separate attribution and license
 notices](notices/README.md); no bulk catalog, logos or descriptions are redistributed.
 
@@ -97,7 +96,7 @@ Verification does not create research runs or call models. It samples at most tw
 
 Default verification bounds: 20 HTTP requests (including redirects/retries), 12 MB and 120 seconds per company, five redirect hops; batch bounds are 4,000 requests, 2 GB and three cumulative active hours, with two company workers. Collection budgets remain separate. Ctrl-C/SIGTERM saves a resumable stop. Each batch freezes target IDs/hash and configuration, backs up the library, and writes JSON/CSV/Markdown reports and bounded hashed evidence under ignored `data/company-library/verification-<timestamp>/`. The dashboard’s company library exposes background verification, progress, stop, resume and retry controls.
 
-The October 8 acceptance run reconciled all **84 targets: 65 verified, 13 unsupported, five unverified and one unavailable**, up from 17 verified. Two checks (DRW and MX Technologies) remain explicitly deferred at their request limits. All prior verified companies remain verified. The [acceptance report](notes/company-source-acceptance-2026-10-08.md) lists provider coverage, all unresolved companies, next actions and limitations. Verification used 1,598 requests, 378.4 MB and 28.9 active minutes; no research runs or model calls were made.
+Each verification batch records provider coverage, unresolved companies, deferred checks, resource usage, and next actions in its local reports. Verification outcomes do not establish complete posting inventory or authorize research/model calls.
 
 
 Optional rendering requires Chromium and a passing policy test on macOS:
@@ -117,7 +116,7 @@ Generic configuration uses validated CSS selectors, exact allowed origins, posti
   --url https://example.com/careers --provider dom --dom-config /absolute/selectors.json
 ```
 
-See [company collection documentation](notes/company-collection.md) for configuration, statuses, evidence, compatibility and actual live coverage.
+See [company collection documentation](notes/guides/company-collection.md) for configuration, statuses, evidence, compatibility and actual live coverage.
 
 ## Evidence interpretation
 
@@ -129,16 +128,26 @@ Additional outputs include `requirement-combinations.csv`, `wording-shares.csv`,
 
 Generated files include `manifest.json`, `coverage-matrix.json`, `archive-records.jsonl`, `observations.jsonl`, `requirements.jsonl`, `coverage.csv`, `employer-period-coverage.csv`, `observations.csv`, `requirements.csv`, `same-vacancy-changes.csv`, `requirement-shares.csv`, `report.json`, and `evidence-report.md`.
 
-The separate [Capital One pilot and continuation steps](notes/capital-one-pilot.md) document its saved scope, source verification, stage counts, exclusions and pending human review. Capital One uses title screening followed by full-description classification, including explicit seniority and template-only credit-context checks. New Run separates optional document limits from cumulative session resource allowances; current captures use a separate `CURRENT-*` period.
+Capital One uses title screening followed by full-description classification, including explicit seniority and template-only credit-context checks. New Run separates optional document limits from cumulative session resource allowances; current captures use a separate `CURRENT-*` period. The [comparison guide](notes/guides/comparison-pipeline.md) documents collection and review commands.
 
 ## Checks
 
 ```sh
 .venv/bin/python -m unittest discover -s tests -v
 node tests/frontend.test.cjs
+node tests/phase-frontend.test.cjs
 ./desktop/build.sh
 ```
 
-Latest checks: 192 Python tests (184 passed and eight browser tests run separately), all eight browser integration tests passed, frontend checks passed, and the native build passed. Exact logs are linked from the acceptance report.
-
 The tests cover the existing research pipeline plus local HTTP access, safe downloads, worker lifecycle, budget exhaustion, source pagination, review conflicts, interrupted writes and report effects. Frontend checks exercise state/render functions without launching a browser. The optional browser check separately tests rendering, pinned request accounting, redirects, hostile requests, DNS rebinding, cancellation and descendant cleanup under the production macOS confinement policy.
+
+## Documentation and repository layout
+
+The [documentation index](notes/README.md) links the reusable operating guides. Personal study
+plans, handoffs, audits, decisions, validation receipts, research, and design records remain
+local in their `notes/` subfolders and are excluded from Git.
+
+Application code lives in `degent/`, the native launcher in `desktop/`, and tests in `tests/`.
+Research inputs and templates live in `config/`, `schemas/`, and `prompts/`; attribution stays
+in `notices/`. Saved evidence and runs remain local under `data/`, `runs/`, `collections/`,
+and `historical-postings-handover/`, all excluded from Git.

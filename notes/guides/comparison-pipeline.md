@@ -1,11 +1,11 @@
 # Capital One evidence-backed comparison study
 
-Implemented as an opt-in study. Existing current/archive runs retain their policies and evidence. The first study is `capital-one-knowledge-baseline-2026-10-08`; its preserved descriptions can be reviewed before paid inference. Extraction, paid benchmarking, embeddings execution, stronger-model escalation and comparative conclusions remain gated.
+Implemented as an opt-in study. Existing current/archive runs retain their policies and evidence. Create a study with a new run ID and review its preserved descriptions before paid inference. Extraction, paid benchmarking, embeddings execution, stronger-model escalation and comparative conclusions remain gated.
 
 ## Start, collect and resume
 
 ```sh
-.venv/bin/python -m degent --run-id my-capital-one-study study create --seed-run capital-one-credit-pilot
+.venv/bin/python -m degent --run-id my-capital-one-study study create
 .venv/bin/python -m degent --run-id my-capital-one-study current
 .venv/bin/python -m degent --run-id my-capital-one-study study prepare
 .venv/bin/python -m degent --run-id my-capital-one-study study groups
@@ -120,18 +120,39 @@ Mention summaries count statements and distinct mentioning vacancies separately.
 
 ## Decision provenance
 
-The original register is preserved in `research-decision-register-baseline-2026-10-08.md/.json`. Version 2 adds the agreed study overlay and keeps proposals, rejected alternatives, assumptions and unresolved gates distinct. `research-decisions.jsonl` is the append-only decision journal. `research-policy-review-recovered-2026-10-08.json` preserves the nine edited decisions and four notes transcribed from the browser workbook, including truncated/uncertain readback. It is explicitly a transcription, not an exported workbook snapshot.
+Keep study-specific policy registers, recovered reviews, and append-only decisions locally.
+They document the scope and authorization of their saved run rather than configuring a fresh
+checkout. Preserve original baselines and distinguish a recovered transcription from an
+exported review snapshot. The local `notes/policy/` folder is excluded from Git.
 
 ## Local OpenRouter setup
 
-Put the secret after `OPENROUTER_API_KEY=` in `/Users/veerr_89/Work/agents/degent/.env`. Do not paste it into chat. `.env` and related local variants are gitignored; `.env.example` contains no secret. Environment variables override literal local dotenv values, without shell expansion.
+Put the secret after `OPENROUTER_API_KEY=` in the repository-root `.env` file. Do not paste it into chat. `.env` and related local variants are gitignored; `.env.example` contains no secret. Environment variables override literal local dotenv values, without shell expansion.
 
 Choose an approved model for a saved study:
 
 ```sh
-.venv/bin/python -m degent --run-id capital-one-knowledge-baseline-2026-10-08 study model --model openai/gpt-6-luna
+.venv/bin/python -m degent --run-id my-capital-one-study study model --model openai/gpt-6-luna
 ```
 
 This preserves the earlier frozen configuration and journals the change. Switching models resets inference authorization and allowances, while retaining consumed usage. An optional `OPENROUTER_MODEL` in `.env` must match the saved identity before paid calls can run. Configure allowances only following explicit spending authorization: `inference.enabled`, `spending_authorized`, positive `call_limit`, `input_token_limit`, `output_token_limit`, `cost_limit_usd`, and dated `pricing` (`effective_date`, `input_per_million`, `output_per_million`). Use conservative rates for the chosen context tier. The adapter passes these rates as provider price ceilings and records returned native token counts and billed cost, including provider token/cost details when supplied. Missing usage retains reservations; OpenRouter reserves a conservative serialized-byte allowance plus protocol overhead when no tokenizer is available. Character estimates are not billed usage. The saved dated catalog is reference pricing, not authorization.
 
 The transport follows the official [API contract](https://openrouter.ai/docs/api/reference/overview), [structured output contract](https://openrouter.ai/docs/guides/features/structured-outputs), and [provider selection controls](https://openrouter.ai/docs/guides/routing/provider-selection).
+
+## Offline historical preparation
+
+The frozen current baseline remains unchanged. Prepare a separate local run with:
+
+```sh
+.venv/bin/python -m degent --run-id my-historical-study study historical \
+  --file /absolute/path/to/historical-handover \
+  --seed-run my-capital-one-study
+```
+
+Repeat the same command to recover interrupted preparation or rebuild derived reports. It validates package hashes, publishes an immutable content-addressed collection atomically, retains every source observation/version/subset mapping, references original evidence, and transfers no approvals. Completed collections reject changed bytes. The separate preparation configuration keeps the explicitly approved OpenRouter identity and blocks inference, new collection and allowance extensions. The original baseline, configuration history, decision journal and gitignored `.env` remain preserved.
+
+Historical posting groups are identity candidates. `identity-review.json` records requisition, alias, duplicate-text, changed-description and exact-title review cues; none authorizes a merge or repost claim. Historical candidates stay outside confirmed-vacancy denominators. Retrieval, first local observation and verified archive wording dates remain separate; modern recruiting copies and unverified archives cannot enter historical wording views. Historical publication cohorts describe later archived wording, not proven wording at publication. Conflicting publication dates become UNKNOWN in that view.
+
+`source-units-v2` retains full originals and exact offsets, removes explicit introductions/benefits/legal/navigation templates, and preserves duties and explicit expectations, including mixed introduction/expectation paragraphs and duties mentioning money. Selection signatures invalidate prior extraction/cache and review identities. Unknown/partial descriptions or selections cannot establish absence, including through an otherwise passing automated method. The minimum assessed-vacancy threshold cannot be lowered below 30. Built-in skill IDs are frozen; semantic changes require new IDs and explicit lineage.
+
+Review `scope-proposals.jsonl`, `selection-audit.jsonl`, `pay-records.jsonl`, `monetary-mentions-review.jsonl` and `gold-coverage-audit.json`. The current historical packet is named by `historical-selection-review-index.json`; method-specific packets are preserved and never overwrite labels. Pay candidates retain exact amount, attribution-label and pay-period spans; `$` alone leaves currency unresolved, and posting locations never fill missing pay locations. Human identity decisions should be recorded separately from the generated audit; scope proposal edits and historical review packets survive repeat preparation. Inspect the saved run’s readiness and review artifacts for outstanding decisions.

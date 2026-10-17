@@ -15,4 +15,4 @@ Third-party source content is excluded from that grant. Saved descriptions stay 
 
 The selected lead snapshot stores only target-matched URLs, company mappings and attribution; it contains no bulk registry, logos or job descriptions. Employer/provider relationships are rechecked live before verification. Generic parsers and browser enforcement remain small synchronous Degent adapters, without Jobseek services or runtime dependencies.
 
-The October 8 acceptance pass used 48 selected target leads as discovery candidates and reconciled all 84 supplied companies (65 verified; 19 unresolved). Historical and current evidence remain separate; no selected lead alone established ownership. The [acceptance report](../notes/company-source-acceptance-2026-10-08.md) documents actual outcomes and remaining Gem, HiBob, SmartRecruiters and LinkedIn destination gaps. The reference checkout was not modified.
+Historical and current evidence remain separate; no selected lead alone establishes ownership. The [company collection guide](../notes/guides/company-collection.md) describes source verification and its limits. Verification reports and downloaded evidence stay local.

@@ -7,7 +7,19 @@ __pycache__/
 *.py[cod]
 data/
 runs/
+# Local acquisition and imported research evidence
+/collections/
+/historical-postings-handover/
+# Personal study records and one-off planning outputs; publish reusable guides only
+/notes/*
+!/notes/README.md
+!/notes/guides/
+/deep-research/
 *.egg-info/
+.eggs/
+dist/
+*.whl
+*.egg
 build/
 .DS_Store
 .AppleDouble
@@ -20,6 +32,8 @@ Desktop.ini
 .env
 .env.*
 !.env.example
+.envrc
+.direnv/
 
 # Personal credentials and machine-local settings
 .aws/
@@ -46,6 +60,10 @@ node_modules/
 coverage/
 htmlcov/
 .coverage
+.coverage.*
+.hypothesis/
+.tox/
+.nox/
 *.swp
 *.swo
 *~
