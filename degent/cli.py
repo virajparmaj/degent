@@ -228,6 +228,8 @@ def discovery_queries(
 
 
 def discover(config: dict[str, Any], run_id: str) -> dict[str, Any]:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     run_dir = run_directory(config, run_id)
     manifest = manifest_for(run_dir, run_id)
     archive_config = config["archives"]
@@ -851,6 +853,8 @@ def select_fetch_records(
 
 
 def fetch(config: dict[str, Any], run_id: str) -> dict[str, Any]:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     run_dir = run_directory(config, run_id)
     manifest = manifest_for(run_dir, run_id)
     archive_config = config["archives"]
@@ -1169,12 +1173,14 @@ def main() -> None:
     )
     subparsers.add_parser("report")
     study_parser = subparsers.add_parser("study", help="Provider-neutral Capital One comparison study")
-    study_parser.add_argument("action", choices=["create", "prepare", "groups", "approve-taxonomy", "gold", "evaluate", "audit-packet", "review-document", "retry-failed", "model"])
+    study_parser.add_argument("action", choices=["create", "prepare", "historical", "groups", "approve-taxonomy", "gold", "evaluate", "audit-packet", "review-document", "retry-failed", "model", "phase-prepare", "phase-preflight", "phase-review", "phase-run", "phase-evaluate", "phase-revision"])
     from .openrouter import APPROVED_MODELS, DEFAULT_MODEL
     study_parser.add_argument("--model", choices=APPROVED_MODELS, default=DEFAULT_MODEL)
     study_parser.add_argument("--seed-run")
+    study_parser.add_argument("--previous-evaluation", help="Prior failed isolated evaluation run ID for an explicitly approved revision")
     study_parser.add_argument("--file", type=Path)
     study_parser.add_argument("--vectors", type=Path)
+    study_parser.add_argument("--retry", action="store_true", help="Explicit bounded retry of an invalid phase response")
     current_parser = subparsers.add_parser("current")
     current_parser.add_argument(
         "--companies", help="Comma-separated local company IDs (new runs only)"
@@ -1254,6 +1260,42 @@ def main() -> None:
     evaluation_parser.add_argument("path", type=Path)
     args = parser.parse_args()
     config = load_config(args.config)
+    if args.operation == "study" and args.action.startswith("phase-"):
+        from .phase_inference import run_phase
+        from .phase_review import reports, review
+        from .phase_evaluation import evaluate_phase
+        from .phases import prepare_phases
+        try:
+            if args.model != DEFAULT_MODEL or args.vectors:
+                raise ValueError("Scoped phases use only the agreed pilot model and preserved descriptions; no embeddings.")
+            if args.action == "phase-revision":
+                from .phase_revision import prepare_revision
+                if not args.seed_run or not args.previous_evaluation or not args.file:
+                    raise ValueError("Revision requires --seed-run, --previous-evaluation and --file with human revision approval.")
+                result = prepare_revision(Path(config["run_dir"]) / safe_id(args.seed_run),
+                    Path(config["run_dir"]) / safe_id(args.previous_evaluation), Path(config["run_dir"]), read_json(args.file))
+            elif args.action == "phase-prepare":
+                if not args.seed_run:
+                    raise ValueError("Phase preparation requires --seed-run READINESS_RUN.")
+                result = prepare_phases(Path(config["run_dir"]) / safe_id(args.seed_run), Path(config["run_dir"]))
+            else:
+                phase_directory = run_directory(config, args.run_id)
+                if not read_json(phase_directory / "dashboard-config.json").get("phase_only"):
+                    raise ValueError("Select an isolated phase run; existing runs are preserved.")
+                if args.action == "phase-review":
+                    if not args.file:
+                        raise ValueError("Human review requires --file DECISION.json.")
+                    result = review(phase_directory, read_json(args.file))
+                elif args.action == "phase-run":
+                    result = run_phase(phase_directory, retry=args.retry)
+                else:
+                    with operation_lock(phase_directory):
+                        result = evaluate_phase(phase_directory) if args.action == "phase-evaluate" else reports(phase_directory)
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            return
+        except (ValueError, RuntimeError, KeyError, OSError) as exc:
+            print(json.dumps({"status": "blocked", "reason": str(exc)}), file=sys.stderr)
+            raise SystemExit(2) from None
     from .companies import CompanyLibrary
 
     library = CompanyLibrary(config)
@@ -1400,6 +1442,17 @@ def main() -> None:
         )
         print(json.dumps(result, indent=2))
         return
+    if args.operation == "study" and args.action == "historical":
+        from .historical import prepare_historical
+        if not args.file or not args.seed_run:
+            parser.error("Historical preparation requires --file PACKAGE and --seed-run BASELINE.")
+        try:
+            result = prepare_historical(config, args.run_id, args.file,
+                                        Path(config["run_dir"]) / safe_id(args.seed_run))
+            print(json.dumps(result, indent=2))
+            return
+        except (ValueError, RuntimeError) as exc:
+            parser.error(str(exc))
     if args.operation == "study" and args.action == "create":
         from .study import create
         try:
@@ -1482,6 +1535,8 @@ def main() -> None:
                         "Saved scope/budgets are frozen. Use scope, continue, or refresh explicitly."
                     )
                 config = load_config(saved_config)
+                if config.get("phase_only"):
+                    raise ValueError("Isolated phase run: use study phase-preflight/review/run/evaluate; collection and broad study actions are forbidden.")
                 if config.get("study_version") == 1 and args.operation in {"discover", "fetch", "import", "evaluate"}:
                     raise ValueError("This frozen study uses current official collection and study-specific evaluation; archives/imports require a separate run.")
                 if args.operation == "refresh" and config.get("collection_version") != 2:

@@ -8,19 +8,19 @@ from zoneinfo import ZoneInfo
 
 from .store import digest
 
-SELECTOR_VERSION = "source-units-v1"
-KNOWLEDGE = re.compile(r"\b(analyst|analytics?|risk|credit|underwriting|quantitative|model(?:ing|ling)?|data|scientist|science|engineer(?:ing)?|developer|software|machine learning|artificial intelligence|AI|ML|cyber|technology)\b", re.I)
+SELECTOR_VERSION = "source-units-v2"
+KNOWLEDGE = re.compile(r"\b(analyst|analytics?|risk|fraud|credit|underwriting|quantitative|model(?:ing|ling)?|data|scientist|science|research|product manage(?:r|ment)|engineer(?:ing)?|developer|software|machine learning|artificial intelligence|AI|ML|cyber|technology)\b", re.I)
 UNRELATED = re.compile(r"\b(branch ambassador|cafe ambassador|café ambassador|teller|customer service representative|customer care|concierge|retail banker|administrative assistant|recruiter)\b", re.I)
 HEADINGS = (
     ("qualification", re.compile(r"^(?:basic|minimum|preferred|desired|essential|additional)?\s*(?:qualifications?|requirements?|skills?|experience)(?:\s+(?:and|&)\s+(?:skills|experience|qualifications))?\s*:?$", re.I)),
     ("qualification", re.compile(r"^(?:what (?:you.ll|you will|we) (?:need|bring|look for)|who you are|nice to have|a plus)\s*:?$", re.I)),
-    ("responsibility", re.compile(r"^(?:(?:general|key|specific|your)\s+)?responsibilities(?:\s+include[^:]*)?\s*:?$|^(?:what you.ll do|what you will do|about the role)\s*:?$", re.I)),
+    ("responsibility", re.compile(r"^(?:(?:general|key|specific|your)\s+)?(?:responsibilities|duties)(?:\s+include[^:]*)?\s*:?$|^(?:what you.ll do|what you will do|about the role|job description|the role|role summary|summary)\s*:?$", re.I)),
     ("company_expectation", re.compile(r"^(?:our culture|our values|how we work|who thrives here)\s*:?$", re.I)),
     ("company_description", re.compile(r"^(?:about us|about capital one|benefits|compensation|salary|equal opportunity|legal|privacy)\s*:?$", re.I)),
     ("hiring_process", re.compile(r"^(?:hiring process|application process|recruiting process)\s*:?$", re.I)),
 )
 # Only explicit template paragraphs are removed, not arbitrary repeated text.
-BOILERPLATE = re.compile(r"^(?:The minimum and maximum full.time annual salaries|Candidates hired to work in other locations|Capital One offers a comprehensive|No agencies please\.|If you have visited our website in search|For technical support or questions about Capital One.s recruiting|Capital One does not provide, endorse|Capital One will consider for employment qualified applicants)", re.I)
+BOILERPLATE = re.compile(r"^(?:The minimum and maximum full.time annual salaries|Candidates hired to work in other locations|Capital One offers a comprehensive|No agencies please\.|If you have visited our website in search|For technical support or questions about Capital One.s recruiting|Capital One does not provide, endorse|Capital One will consider for employment qualified applicants|Capital One is an equal opportunity employer|All qualified applicants will receive consideration|Capital One promotes a drug.free workplace|Capital One is a federally registered service mark|Capital One Financial is made up of several|Please note that any position posted in Canada|Capital One, (?:a Fortune 500|one of the)|We offer a broad spectrum of financial products|We nurture a work environment|(?:Learn more|Read more|Click here).{0,50}(?:benefits|privacy)|(?:Apply now|Save job|Share this job|Back to search|Related jobs)\s*$|https?://\S+\s*$)", re.I)
 
 
 def knowledge_scope(title: str, text: str = "") -> dict:
@@ -61,7 +61,21 @@ def select_units(text: str, source_hash: str | None = None) -> dict:
                 scope, heading, is_heading = kind, stripped, True
                 break
         boilerplate = bool(BOILERPLATE.search(stripped))
+        # Exclude only explicit benefit/pay/navigation lines. Unknown prose stays for review.
+        compensation = bool(re.search(r"(?:401\s*\(?k\)?|health.{0,20}(?:benefits|insurance)|paid time off|annual (?:base )?salar|hourly (?:pay|rate)|^[\w .,/()_-]{1,100}:\s*(?:\$|USD)\s*\d)", stripped, re.I))
+        expectation = bool(re.search(r"\b(?:must|required|preferred|experience|proficien\w*|ability|you will|you.ll|responsib\w*|duties|sponsor|authorization|willing|eligible to work|build\w*|design\w*|develop\w*|deliver\w*|lead\w*|manag\w*|analy\w*|collaborat\w*|partner\w*|hold|accountab\w*|ensure|drive|support|perform|maintain)\b", stripped, re.I))
+        boilerplate = boilerplate or compensation and not expectation
+        introduction = bool(re.match(r"(?:Capital One is a high.tech company|Data is at the center of everything we do\. As a startup|We believe our portfolio of businesses)", stripped, re.I))
+        direct_expectation = bool(re.search(r"\b(?:you|your|must|qualifications|we are seeking|this role|the candidate)\b", stripped, re.I))
+        if introduction and not direct_expectation:
+            boilerplate = True
+        if direct_expectation and re.match(r"Capital One, (?:a Fortune 500|one of the)|Capital One is a high.tech company", stripped, re.I):
+            boilerplate = False  # Mixed introduction/expectation paragraphs must survive intact.
         selected = not boilerplate and scope != "company_description"
+        if scope == "company_description" and heading and re.fullmatch(r"about (?:us|capital one)\s*:?", heading, re.I) and not is_heading:
+            selected = not boilerplate  # Expand unfamiliar role prose under an introduction.
+        if expectation and not boilerplate:
+            selected = True  # An explicit employer expectation survives a broad heading.
         metadata = metadata_prefix and len(units) < 3
         selected = selected and not metadata
         # A notice may mention a tool; preserve its separate context, not a qualification.
@@ -69,6 +83,8 @@ def select_units(text: str, source_hash: str | None = None) -> dict:
             unit_scope = "hiring_process"
         else:
             unit_scope = scope
+        if selected and scope == "company_description":
+            unit_scope = "unknown"  # Heading cannot turn explicit expectations into company copy.
         units.append({
             "unit_id": "u" + str(len(units)), "source_sha256": source_hash,
             "start": start, "end": end, "text": text[start:end],
@@ -143,6 +159,10 @@ def period_definitions(as_of: str) -> list[dict]:
 
 def decorate_observation(row: dict, config: dict, text: str) -> dict:
     from .classify import role_level
+    from .metadata import metadata_assertions
+    row.setdefault("collection_id", "current")
+    row.setdefault("collection_kind", "current")
+    metadata_assertions(row, text)
     usable, reason = readable(text)
     scope = knowledge_scope(row.get("title", ""), text)
     us_addresses = [a for a in row.get("structured_locations", []) if str(a.get("addressCountry", "")).casefold() in {"us", "usa", "united states", "united states of america"}]
@@ -168,7 +188,7 @@ def decorate_observation(row: dict, config: dict, text: str) -> dict:
         inclusion_reason=reason if not usable else "outside US scope" if row.get("geography_status") not in {"us_location", "remote_us_eligible"} else scope["reason"],
         eligible=eligible, eligible_for_primary=eligible and bool(row.get("capture_date")),
         description_readable=usable, description_completeness="unreviewed",
-        body_text_complete=usable, body_complete=eligible,
+        body_text_complete=False, body_complete=eligible,
         body_status=reason if not usable else "scope_review" if scope["decision"] == "ambiguous" else row.get("geography_status"),
         level="internship" if re.search(r"\bintern(?:ship)?\b", row.get("title", ""), re.I) else role_level(row.get("title", "")), role_track="unassigned", role_subtype="unassigned",
         role_group_id=None, taxonomy_version=None,
@@ -185,4 +205,28 @@ def decorate_observation(row: dict, config: dict, text: str) -> dict:
                                   "uncertainty": "recognized_source_category" if employment != "unknown" else "missing_or_unrecognized_source_category"},
     )
     row.setdefault("content_version_id", row["document_id"])
+    row.setdefault("collection_id", "current")
+    row.setdefault("collection_kind", "current")
+    row.setdefault("identity_status", "confirmed_source_identity")
+    if row["collection_kind"] == "historical":
+        # Retrieval is modern; only authenticated archive observations date historical wording.
+        historical = row["historical_source"]
+        wording = date_assertion(row.get("verified_historical_wording_at"), historical.get("wording_valid_at_provenance"), config["timezone"])
+        wp, we = period_for(wording["date"])
+        row.update(description_completeness=historical["description_completeness"],
+                   body_text_complete=historical["description_completeness"] == "complete",
+                   wording_date_evidence=wording, wording_period_id=wp, wording_era=we,
+                   wording_validity={"observed_at": row.get("verified_historical_wording_at"),
+                                     "valid_from": None, "valid_through": None,
+                                     "evidence": historical.get("wording_valid_at_provenance"),
+                                     "historical_eligible": bool(wording["date"])},
+                   eligible=usable and bool(row.get("comparison_subset")),
+                   eligible_for_primary=False,
+                   inclusion_decision="review" if row.get("comparison_subset") else "preserved_outside_focused_subset")
+        if publication["date"] and wording["date"] and publication["date"] > wording["date"]:
+            publication["uncertainty"] = "publication_after_verified_wording_needs_review"
+            row.update(publication_period_id="UNKNOWN", publication_era="UNKNOWN")
+    else:
+        row["wording_period_id"], row["wording_era"] = cp, ce
+        row["verified_historical_wording_at"] = None
     return row

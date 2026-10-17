@@ -191,6 +191,29 @@ class Dashboard:
             if p.is_dir() and not p.is_symlink() and (p / "manifest.json").exists()
         ]
 
+    def phase_state(self, run_id: str) -> dict:
+        from .phase_workspace import state
+
+        return {**state(self.run_dir(run_id)), "token": self.token}
+
+    def phase_action(self, payload: dict, action: str) -> dict:
+        from . import phase_workspace as workspace
+
+        directory = self.run_dir(payload["run_id"])
+        kind, identity = payload.get("kind", ""), payload.get("document_id", "")
+        if action == "draft":
+            return workspace.save_draft(directory, payload["decision"], kind, identity, payload["revision"])
+        if action == "recover-draft":
+            return workspace.recover_draft(directory, kind, identity)
+        if action == "validate":
+            with operation_lock(directory):
+                return workspace.validate_export(directory, payload["decision"])
+        if action == "submit":
+            return workspace.submit(directory, payload["decision"], payload["history_sha256"])
+        if action == "import":
+            return workspace.import_drafts(directory, payload["decision"], payload["revisions"])
+        raise ValueError("Unknown offline phase-review action.")
+
     def observations(self, directory: Path) -> list[dict]:
         return read_jsonl(directory / "observations.jsonl")
 
@@ -744,6 +767,8 @@ class Dashboard:
         if config.get("study_version") != 1:
             raise ValueError("Select a Capital One knowledge-role study.")
         directory = self.run_dir(run_id)
+        from .phase_state import reject_broad
+        reject_broad(config, directory=directory)
         from .study import prepare
         from .taxonomy import approve, propose
         from .study_evaluation import gold_packet, evaluate, audit_packet
@@ -785,6 +810,8 @@ class Dashboard:
         )
 
     def start(self, run_id: str, operation: str, codex: bool = False) -> dict:
+        from .phase_state import reject_broad
+        reject_broad(self.config(run_id), directory=self.run_dir(run_id))
         if operation not in OPERATIONS:
             raise ValueError("Unknown pipeline operation.")
         if self.busy():
@@ -897,6 +924,8 @@ class Dashboard:
             raise ValueError(str(exc)) from exc
 
     def _save_review(self, run_id: str, payload: dict) -> dict:
+        from .phase_state import reject_broad
+        reject_broad(self.config(run_id), directory=self.run_dir(run_id))
         if self.busy():
             raise ValueError("Wait for the active operation to finish before reviewing evidence.")
         requirement = next(
@@ -958,6 +987,8 @@ class Dashboard:
         return decision
 
     def review_document(self, run_id: str, payload: dict) -> dict:
+        from .phase_state import reject_broad
+        reject_broad(self.config(run_id), directory=self.run_dir(run_id))
         if self.busy():
             raise ValueError("Wait for the active operation before reviewing a document.")
         directory = self.run_dir(run_id)
@@ -1054,7 +1085,21 @@ class Handler(BaseHTTPRequestHandler):
         run_id = query.get("run", self.app.run_list()[:1] or ["new-research"])[0]
         try:
             with self.app.lock:
-                if url.path == "/api/state":
+                if url.path == "/api/phases":
+                    from .phase_workspace import run_inventory
+                    self.respond(200, {"runs": run_inventory(self.app.runs)})
+                elif url.path == "/api/phase/state":
+                    self.respond(200, self.app.phase_state(run_id))
+                elif url.path == "/api/phase/document":
+                    from .phase_workspace import document
+                    self.respond(200, document(self.app.run_dir(run_id), query.get("id", [""])[0], query.get("mode", ["evidence"])[0]))
+                elif url.path == "/api/phase/draft":
+                    from .phase_workspace import load_draft
+                    self.respond(200, load_draft(self.app.run_dir(run_id), query.get("kind", [""])[0], query.get("id", [""])[0]))
+                elif url.path == "/api/phase/taxonomy-template":
+                    from .phase_workspace import taxonomy_template
+                    self.respond(200, taxonomy_template(self.app.run_dir(run_id)))
+                elif url.path == "/api/state":
                     self.respond(200, self.app.state(run_id))
                 elif url.path == "/api/companies":
                     self.respond(
@@ -1106,7 +1151,7 @@ class Handler(BaseHTTPRequestHandler):
                         raise ValueError("Unknown export.")
                     file = self.app.run_dir(run_id) / filename
                     self.respond(200, file.read_bytes(), "application/octet-stream", filename)
-                elif url.path in {"/", "/index.html", "/app.js", "/styles.css"}:
+                elif url.path in {"/", "/index.html", "/app.js", "/styles.css", "/phase.html", "/phase.js", "/phase.css"}:
                     file = WEB / ("index.html" if url.path == "/" else url.path.lstrip("/"))
                     self.respond(
                         200, file.read_bytes(), mimetypes.guess_type(file)[0] or "text/plain"
@@ -1135,13 +1180,15 @@ class Handler(BaseHTTPRequestHandler):
             return
         try:
             size = int(self.headers.get("Content-Length", "0"))
-            if not 0 < size <= (5_500_000 if self.path == "/api/import" else 16000):
+            if not 0 < size <= (5_500_000 if self.path == "/api/import" or self.path.startswith("/api/phase/") else 16000):
                 raise ValueError("Invalid request size.")
             payload = json.loads(self.rfile.read(size))
             if not isinstance(payload, dict):
                 raise ValueError("Expected a JSON object.")
             with self.app.lock:
-                if self.path == "/api/company-verifications":
+                if self.path.startswith("/api/phase/"):
+                    result = self.app.phase_action(payload, self.path.removeprefix("/api/phase/"))
+                elif self.path == "/api/company-verifications":
                     result = self.app.start_verification(payload)
                 elif self.path == "/api/company-verifications/stop":
                     result = self.app.stop_verification()

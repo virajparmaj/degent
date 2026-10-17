@@ -90,6 +90,10 @@ EXTRACTION_BUDGETS = {
 
 
 def extend(config, run_id, additions):
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
+    if config.get("preparation_only"):
+        raise ValueError("Local preparation run: collection allowances cannot be extended.")
     from .cli import manifest_for, run_directory, save_manifest
 
     directory = run_directory(config, run_id)
@@ -817,6 +821,10 @@ class Collector:
 
 
 def collect(config, run_id, refresh=False):
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
+    if config.get("preparation_only"):
+        raise ValueError("Local preparation run: new collection is disabled.")
     from .cli import manifest_for, run_directory
 
     directory = run_directory(config, run_id)
@@ -842,6 +850,8 @@ def collect(config, run_id, refresh=False):
 
 def retry_failed(config, run_id):
     """Explicitly retry only missing descriptions; never reset consumed allowances."""
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import manifest_for, run_directory, save_manifest
     directory = run_directory(config, run_id)
     manifest = manifest_for(directory, run_id)

@@ -119,6 +119,39 @@
             "string",
             "null"
           ]
+        },
+        "collection_id": {
+          "type": "string"
+        },
+        "collection_kind": {
+          "enum": [
+            "current",
+            "historical"
+          ]
+        },
+        "identity_status": {
+          "type": "string"
+        },
+        "comparison_subset": {
+          "type": "boolean"
+        },
+        "verified_historical_wording_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "wording_period_id": {
+          "type": "string"
+        },
+        "comparison_quarantine": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "historical_source": {
+          "type": "object"
         }
       }
     },
@@ -336,7 +369,9 @@
         "time_basis": {
           "enum": [
             "capture_period",
-            "publication_observed_today"
+            "publication_observed_today",
+            "historical_wording",
+            "historical_publication_cohort"
           ]
         },
         "assessment_basis": {
@@ -364,6 +399,12 @@
           ],
           "minimum": 0,
           "maximum": 100
+        },
+        "collection_kind": {
+          "enum": [
+            "current",
+            "historical"
+          ]
         }
       }
     },
@@ -415,6 +456,61 @@
         },
         "ownership_evidence": {
           "type": "array"
+        }
+      }
+    },
+    "pay": {
+      "type": "object",
+      "required": [
+        "pay_id",
+        "document_id",
+        "source_sha256",
+        "amount_min",
+        "amount_max",
+        "currency",
+        "pay_period",
+        "applicable_location",
+        "evidence_start",
+        "evidence_end",
+        "evidence",
+        "status"
+      ],
+      "properties": {
+        "amount_min": {
+          "type": "number"
+        },
+        "amount_max": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "currency": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pay_period": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "applicable_location": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_start": {
+          "type": "integer"
+        },
+        "evidence_end": {
+          "type": "integer"
+        },
+        "evidence": {
+          "type": "string"
         }
       }
     }

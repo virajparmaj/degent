@@ -222,6 +222,8 @@ def observation(
 
 
 def collect_current(config: dict, run_id: str) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     if config.get("collection_version") == 2:
         from .collection import collect
         return collect(config, run_id)
@@ -420,6 +422,8 @@ def current_selections(directory: Path) -> list[dict]:
 
 
 def import_postings(config: dict, run_id: str, path: Path) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import run_directory
 
     if path.stat().st_size > 5_000_000:

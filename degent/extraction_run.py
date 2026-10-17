@@ -24,6 +24,8 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def refresh_observations(directory: Path, config: dict) -> list[dict]:
+    from .phase_state import reject_broad
+    reject_broad(config, directory=directory)
     from .cli import _title_from_body
 
     rows = read_jsonl(directory / "observations.jsonl")
@@ -59,6 +61,12 @@ def refresh_observations(directory: Path, config: dict) -> list[dict]:
                 if not raw_source.is_file() or digest(raw_source.read_bytes()) != row["raw_source_sha256"]:
                     row.update(eligible=False, body_complete=False, eligible_for_primary=False,
                                body_status="raw_source_hash_mismatch")
+            for ref in row.get("evidence_references", []):
+                path = Path(ref["path"])
+                if not path.is_file() or digest(path.read_bytes()) != ref["sha256"]:
+                    row.update(eligible=False, body_complete=False, eligible_for_primary=False,
+                               body_status="historical_evidence_hash_mismatch")
+                    break
             continue
         if row.get("raw_source_sha256"):
             source_raw = Path(row.get("raw_source_file") or "")
@@ -159,6 +167,8 @@ def reserved_call(
 
 
 def extract_run(config: dict, run_id: str, use_codex: bool, runner: Callable) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import manifest_for, run_directory, save_manifest
 
     directory = run_directory(config, run_id)

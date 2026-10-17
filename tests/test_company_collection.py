@@ -578,6 +578,7 @@ class CollectionTests(unittest.TestCase):
         client = CollectionClient(self.config, requests=1, byte_limit=100, seconds=10)
         with (
             patch("degent.collection_http.validate_public_url"),
+            patch("degent.collection_http.public_address", return_value="93.184.216.34"),
             patch.object(urllib.request, "build_opener", return_value=Opener()),
         ):
             status, headers, body = client.request("https://example.com/feed")

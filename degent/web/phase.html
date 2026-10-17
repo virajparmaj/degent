@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Degent · Scoped evidence review</title>
+  <link rel="stylesheet" href="/phase.css"><script src="/phase.js" defer></script>
+</head>
+<body>
+  <header><a href="/">degent.</a><h1>Scoped evidence review</h1><select id="runs" aria-label="Phase run"></select></header>
+  <div id="status" role="status" aria-live="polite">Opening preserved evidence…</div>
+  <div id="gates"></div>
+  <main><aside><label>Review queue<select id="queue"></select></label><div id="counts"></div><nav id="documents" aria-label="Descriptions"></nav></aside>
+    <section class="evidence"><h2 id="title">Choose a description</h2><details><summary>Source and identity</summary><pre id="metadata"></pre></details>
+      <details><summary>Frozen candidate duty and US geography spans</summary><div id="candidates"></div></details><h3>Preserved full text</h3><p>Select exact wording below to attach evidence. Offsets count Unicode characters.</p>
+      <pre id="source" tabindex="0"></pre><div id="span-actions"></div><details><summary>Selected and omitted source units</summary><div id="units"></div></details>
+    </section>
+    <section class="editor"><label>Decision type<select id="kind"></select></label><div id="form"></div>
+      <div id="draft-state"></div><div class="toolbar"><button id="save">Save unapproved draft</button><button id="recover">Recover interrupted draft</button></div>
+      <fieldset><legend>Explicit human decision</legend><label>Your reviewer name<input id="reviewer" autocomplete="name"></label>
+        <label class="check"><input type="checkbox" id="approve">I approve this completed evidence review.</label>
+        <p>Drafts and exports do not enable spending. Recording a manifest approval still requires a separate spending decision through the CLI.</p>
+        <div class="toolbar"><button id="validate">Validate</button><button id="export">Export reviewed decision</button><button id="submit">Record reviewed decision</button></div>
+      </fieldset><label>Import a partial review package as unapproved drafts<input type="file" id="import" accept="application/json,.json"></label>
+      <details><summary>Outstanding prerequisites and limits</summary><pre id="blockers"></pre></details>
+    </section>
+  </main>
+</body></html>

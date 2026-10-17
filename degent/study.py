@@ -94,6 +94,8 @@ def create(base: dict, run_id: str, seed: Path | None = None) -> dict:
 
 
 def configure_model(config: dict, run_id: str, model: str) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import run_directory
     directory = run_directory(config, run_id)
     previous = copy.deepcopy(config.get("inference"))
@@ -110,26 +112,35 @@ def configure_model(config: dict, run_id: str, model: str) -> dict:
 
 
 def prepare(config: dict, run_id: str) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import manifest_for, run_directory, save_manifest
     from .extraction_run import refresh_observations
     directory = run_directory(config, run_id)
     start, cpu = time.monotonic(), time.process_time()
     observations = refresh_observations(directory, config)
     def observation_stamp(row):
-        return row.get("current_capture_at") or row.get("capture_date")
-    earliest, version_earliest = {}, {}
+        return row.get("retrieved_at") or row.get("current_capture_at") or row.get("capture_date")
+    earliest, version_earliest, historical_earliest = {}, {}, {}
     for row in observations:
         stamp = observation_stamp(row)
         if stamp:
             vacancy, version = row["vacancy_id"], row["document_id"]
             earliest[vacancy] = min(stamp, earliest.get(vacancy, stamp))
             version_earliest[version] = min(stamp, version_earliest.get(version, stamp))
+        wording = row.get("verified_historical_wording_at")
+        if wording:
+            doc = row["document_id"]
+            historical_earliest[doc] = min(wording, historical_earliest.get(doc, wording))
     for row in observations:
         for field, candidate in (("collector_first_observed_at", earliest.get(row["vacancy_id"])),
                                  ("version_first_observed_at", version_earliest.get(row["document_id"]))):
             known = row.get(field)
             row[field] = min(known, candidate) if known and candidate else known or candidate
         row["first_observation_basis"] = "earliest preserved study observation and collector index when available"
+        if row.get("collection_kind") == "historical":
+            row["first_observation_basis"] = "earliest preserved local retrieval for an unresolved version identity; confirmed vacancy first observation unknown"
+            row["version_first_verified_wording_at"] = historical_earliest.get(row["document_id"])
     write_jsonl(directory / "observations.jsonl", observations)
     selections, profiles, estimates = {}, {}, []
     for row in observations:
@@ -175,9 +186,13 @@ def prepare(config: dict, run_id: str) -> dict:
 
 
 def extract(config: dict, run_id: str, runner=None) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     from .cli import manifest_for, run_directory, save_manifest
     from .snapshots import SnapshotStore
     directory = run_directory(config, run_id)
+    if config.get("preparation_only"):
+        return {"status": "preparation_only", "reason": "explicit_new_inference_authorization_required", "model_calls": 0}
     prepare(config, run_id)
     manifest = manifest_for(directory, run_id)
     authorization = config.get("inference", {})

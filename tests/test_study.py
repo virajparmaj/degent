@@ -219,7 +219,7 @@ class StudyTests(unittest.TestCase):
         review_document(self.config,'study',{'document_id':'d0','extraction_id':extraction_identity(record),
                         'omission_audited':True,'description_completeness':'complete','selection_review':'complete'})
         approve(self.directory,{'approved':True,'reviewer':'fixture-human','groups':{},'assignments':{},
-            'skills':{'sql':{'name':'SQL','definition':'Structured query language','category':'technical',
+            'skills':{'sql-revised':{'name':'SQL revised boundary','definition':'Structured query language','category':'technical', 'supersedes':['sql'],
                             'supporting_evidence':[{'document_id':'d0','source_sha256':rows[0]['clean_sha256'],'quote':'SQL required.'}]}}})
         prepare(self.config,'study')
         refreshed=effective_extractions(self.directory)[0]

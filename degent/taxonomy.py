@@ -100,7 +100,9 @@ def propose(directory: Path, vector_data: dict | None = None, threshold: float =
     return result
 
 
-def approve(directory: Path, payload: dict) -> dict:
+def approve(directory: Path, payload: dict, persist: bool = True) -> dict:
+    from .vocabulary import vocabulary
+    builtins = vocabulary()
     old = load_taxonomy(directory)
     observations = {r["document_id"]: r for r in read_jsonl(directory / "observations.jsonl")}
     if not payload.get("reviewer") or payload.get("approved") is not True:
@@ -117,12 +119,14 @@ def approve(directory: Path, payload: dict) -> dict:
             if kind == "skills" and row.get("category") not in {"technical", "tool", "domain", "people_skills", "work_habits", "ai_use", "ai_engineering", "experience", "education", "certification", "other"}:
                 raise ValueError("Invalid skill category.")
             previous = old[kind].get(identity)
+            if kind == "skills" and identity in builtins:
+                raise ValueError("Built-in concept IDs are frozen; use a new ID with supersedes lineage.")
             definition = {k:v for k,v in row.items() if k != "approved"}
             if previous and definition != {k:v for k,v in previous.items() if k != "approved"}:
                 raise ValueError("Frozen definition changed: create a new ID and record supersedes lineage.")
             row["approved"] = True
             for parent in row.get("supersedes", []):
-                if parent not in old[kind]:
+                if parent not in old[kind] and not (kind == "skills" and parent in builtins):
                     raise ValueError("Unknown split/merge parent.")
     for doc, assignment in assignments.items():
         obs = observations.get(doc)
@@ -194,7 +198,8 @@ def approve(directory: Path, payload: dict) -> dict:
     version = "taxonomy-" + digest(json.dumps(content, sort_keys=True))[:16]
     result = {**content, "version": version, "reviewer": payload["reviewer"], "approved_at": utc_now()}
     path = directory / "taxonomies" / (version + ".json")
-    if not path.exists():
-        write_json(path, result)
-    write_json(directory / "taxonomy.json", result)
+    if persist:
+        if not path.exists():
+            write_json(path, result)
+        write_json(directory / "taxonomy.json", result)
     return result

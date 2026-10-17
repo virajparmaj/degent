@@ -20,7 +20,7 @@ def analysis_signature(directory: Path) -> str:
     from .model_runner import normalization_signature
     from .store import digest
     return digest(json.dumps({"implementation": {name: digest(Path(__file__).with_name(name).read_bytes())
-                  for name in ("study_metrics.py", "study_evaluation.py", "model_runner.py", "evidence.py", "taxonomy.py", "review.py")},
+                  for name in ("study_metrics.py", "study_evaluation.py", "model_runner.py", "evidence.py", "taxonomy.py", "review.py", "historical.py", "metadata.py", "pay.py", "preparation_audit.py")},
                   "normalization": normalization_signature(load_taxonomy(directory)["skills"])}, sort_keys=True))
 
 
@@ -73,6 +73,12 @@ def statement_concepts(row):
         a.get("concept") or a.get("phrase") for a in row.get("alternative_concepts", []))} - {None}
 
 
+def wording_stamp(row: dict) -> str:
+    if row.get("collection_kind") == "historical":
+        return row.get("verified_historical_wording_at") or ""
+    return row.get("current_capture_at") or row.get("retrieved_at") or row.get("capture_at", "")
+
+
 def assessed(record, concept, status, basis, gate, category, scope="qualification"):
     from .model_runner import normalize
     if not record or not record.get("accepted"):
@@ -99,7 +105,9 @@ def assessed(record, concept, status, basis, gate, category, scope="qualificatio
         return False, False, "ambiguous_or_unmapped"
     if approved and record.get("description_completeness") == "complete" and record.get("selection_review") == "complete":
         return True, False, "not_stated_as_" + status + "_in_reviewed_description"
-    if basis == "evaluated_automated" and not (approved and (record.get("description_completeness") != "complete" or record.get("selection_review") != "complete")) and record.get("capture_completeness") == "full_provider_description":
+    if (basis == "evaluated_automated" and record.get("description_completeness") == "complete"
+            and record.get("selection_review") == "complete"
+            and record.get("capture_completeness") == "full_provider_description"):
         return True, False, "not_detected_by_evaluated_method"
     return False, False, "completeness_unresolved"
 
@@ -120,13 +128,21 @@ def report(directory: Path, config: dict) -> dict:
     gate = automation_gate(directory, records)
     # Recheck hashes so changed/removed source files cannot enter a stale report.
     from .store import digest
-    candidates = []
+    candidates, coverage_candidates = [], []
     for row in observations:
         assignment = taxonomy["assignments"].get(row["document_id"], {})
         source = Path(row["clean_file"])
         if not source.exists() or digest(source.read_bytes()) != row["clean_sha256"]:
             continue
+        evidence = list(row.get("evidence_references", []))
+        if row.get("raw_source_sha256"):
+            evidence.append({"path": row["raw_source_file"], "sha256": row["raw_source_sha256"]})
+        if any(not Path(ref["path"]).is_file() or digest(Path(ref["path"]).read_bytes()) != ref["sha256"] for ref in evidence):
+            continue
         if row.get("eligible") and not (assignment.get("source_sha256") == row["clean_sha256"] and assignment.get("scope_decision") == "excluded"):
+            coverage_candidates.append(row)
+            if row.get("comparison_quarantine") or row.get("identity_status", "confirmed_source_identity") != "confirmed_source_identity":
+                continue
             candidates.append({**row, "role_group_id": assignment.get("role_group_id") if assignment.get("source_sha256") == row["clean_sha256"] else None,
                                "level": assignment.get("level", row.get("level", "unknown")) if assignment.get("source_sha256") == row["clean_sha256"] else row.get("level", "unknown"),
                                "employment_type": assignment.get("employment_type", row.get("employment_type", "unknown")) if assignment.get("source_sha256") == row["clean_sha256"] else row.get("employment_type", "unknown"),
@@ -139,20 +155,27 @@ def report(directory: Path, config: dict) -> dict:
     # Publication view uses only the latest observed wording/date assertion per vacancy.
     latest = {}
     for row in candidates:
-        if row["vacancy_id"] not in latest or row.get("capture_at", "") > latest[row["vacancy_id"]].get("capture_at", ""):
-            latest[row["vacancy_id"]] = row
-    for basis, rows, period_field in (("capture_period", candidates, "capture_period_id"), ("publication_observed_today", latest.values(), "publication_period_id")):
+        key = (row.get("collection_kind", "current"), row["vacancy_id"])
+        if key not in latest or wording_stamp(row) > wording_stamp(latest[key]):
+            latest[key] = row
+    current = [r for r in candidates if r.get("collection_kind", "current") == "current"]
+    historical = [r for r in candidates if r.get("collection_kind") == "historical" and r.get("verified_historical_wording_at")]
+    views = (("capture_period", current, "capture_period_id"),
+             ("publication_observed_today", [r for r in latest.values() if r.get("collection_kind", "current") == "current"], "publication_period_id"),
+             ("historical_wording", historical, "wording_period_id"),
+             ("historical_publication_cohort", [r for r in latest.values() if r.get("collection_kind") == "historical" and r.get("verified_historical_wording_at")], "publication_period_id"))
+    for basis, rows, period_field in views:
         for row in rows:
             group = row.get("role_group_id")
             if group not in taxonomy["groups"] or not taxonomy["groups"][group].get("approved"):
                 continue
             key = (basis, row["employer_id"], row.get("brand") or row["employer_id"], group,
-                   row.get("level", "unknown"), row.get("employment_type") or "unknown", row.get(period_field, "UNKNOWN"))
+                   row.get("level", "unknown"), row.get("employment_type") or "unknown", row.get(period_field, "UNKNOWN"), row.get("collection_kind", "current"))
             old = groups[key].get(row["vacancy_id"])
-            if old is None or row.get("capture_at", "") > old.get("capture_at", ""):
+            if old is None or wording_stamp(row) > wording_stamp(old):
                 groups[key][row["vacancy_id"]] = row
     metrics = []
-    minimum = config.get("comparison_minimum", 30)
+    minimum = max(30, config.get("comparison_minimum", 30))
     for key, vacancies in sorted(groups.items()):
         for concept in sorted(watched):
             category = concepts.get(concept, {}).get("category", "other")
@@ -163,7 +186,7 @@ def report(directory: Path, config: dict) -> dict:
                         denominator, count = sum(c[0] for c in checks), sum(c[1] for c in checks)
                         signatures = {records[o["document_id"]]["method_signature"] for o in vacancies.values() if o["document_id"] in records and records[o["document_id"]].get("accepted")}
                         compatible = len(signatures) == 1
-                        metrics.append({**dict(zip(("time_basis", "employer_id", "brand", "role_group_id", "level", "employment_type", "period"), key)),
+                        metrics.append({**dict(zip(("time_basis", "employer_id", "brand", "role_group_id", "level", "employment_type", "period", "collection_kind"), key)),
                                         "taxonomy_version": taxonomy["version"], "concept": concept, "requirement_status": status,
                                         "statement_scope": scope, "assessment_basis": review_basis,
                                         "eligible_vacancies": len(vacancies), "extracted_vacancies": sum(bool(records.get(o["document_id"], {}).get("accepted")) for o in vacancies.values()),
@@ -186,7 +209,7 @@ def report(directory: Path, config: dict) -> dict:
                            "qualifier": r.get("qualifier"), "evidence": r["evidence"], "status": r["status"]}
                           for r in record["requirements"] if r.get("experience_range") or r.get("experience_years") is not None or r.get("qualifier"))
     experience_summary, mention_summary = [], []
-    facet_names = ("time_basis", "employer_id", "brand", "role_group_id", "level", "employment_type", "period")
+    facet_names = ("time_basis", "employer_id", "brand", "role_group_id", "level", "employment_type", "period", "collection_kind")
     for key, vacancies in groups.items():
         for basis in ("human_reviewed", "evaluated_automated"):
             explicit = defaultdict(list)
@@ -224,37 +247,50 @@ def report(directory: Path, config: dict) -> dict:
                 n = sum(all(c[0] for c in checks) for checks in checked)
                 count = sum(all(c[1] for c in checks) for checks in checked)
                 signatures = {records[o["document_id"]]["method_signature"] for o in vacancies.values() if o["document_id"] in records and records[o["document_id"]].get("accepted")}
-                combinations.append({**dict(zip(("time_basis", "employer_id", "brand", "role_group_id", "level", "employment_type", "period"), key)),
+                combinations.append({**dict(zip(facet_names, key)),
                                      "components": components, "assessment_basis": review_basis, "count": count, "assessed_vacancies": n,
                                      "unresolved_vacancies": len(vacancies)-n, "share_percent": round(100*count/n,1) if n >= minimum and len(signatures) == 1 else None})
     as_of = __import__('datetime').datetime.now(__import__('zoneinfo').ZoneInfo(config["timezone"])).date().isoformat()
     periods = period_definitions(as_of)
     coverage = []
-    for time_basis, field in (("capture_period", "capture_period_id"), ("publication_observed_today", "publication_period_id")):
+    coverage_latest = {}
+    for row in coverage_candidates:
+        key = (row.get("collection_kind", "current"), row["vacancy_id"])
+        if key not in coverage_latest or row.get("capture_at", "") > coverage_latest[key].get("capture_at", ""):
+            coverage_latest[key] = row
+    coverage_views = (("capture_period", "capture_period_id", "current", coverage_candidates),
+                      ("publication_observed_today", "publication_period_id", "current", list(coverage_latest.values())),
+                      ("historical_wording", "wording_period_id", "historical", coverage_candidates),
+                      ("historical_publication_cohort", "publication_period_id", "historical", list(coverage_latest.values())))
+    for time_basis, field, collection_kind, pool in coverage_views:
         for period in periods:
-            found = [o for o in candidates if o.get(field) == period["id"]]
-            coverage.append({"time_basis": time_basis, "period": period["id"], "calendar_kind": period["kind"],
+            found = [o for o in pool if o.get("collection_kind", "current") == collection_kind and o.get(field) == period["id"]
+                     and (collection_kind != "historical" or o.get("verified_historical_wording_at"))]
+            confirmed = [o for o in found if not o.get("comparison_quarantine") and o.get("identity_status", "confirmed_source_identity") == "confirmed_source_identity"]
+            coverage.append({"time_basis": time_basis, "collection_kind": collection_kind, "period": period["id"], "calendar_kind": period["kind"],
                              "capture_coverage": "partial_observations" if found else "unavailable",
-                             "eligible_distinct_vacancies": len({o["vacancy_id"] for o in found}),
+                             "observed_content_versions": len({o["document_id"] for o in found}),
+                             "unresolved_identity_candidates": len({o["vacancy_id"] for o in found if o not in confirmed}),
+                             "eligible_distinct_vacancies": len({o["vacancy_id"] for o in confirmed}),
                              "fully_reviewed_complete_vacancies": len({o["vacancy_id"] for o in found
                                   if document_reviewed(records.get(o["document_id"], {})) and records[o["document_id"]].get("description_completeness") == "complete"}),
                              "observed_dates": sorted({o["capture_date"] for o in found}),
-                             "wording_basis": "observed capture" if time_basis == "capture_period" else "publication cohort, wording observed today"})
+                             "wording_basis": "publication cohort with later verified archive wording; wording at publication unproven" if time_basis == "historical_publication_cohort" else "verified archive point observation" if time_basis == "historical_wording" else "observed capture" if time_basis == "capture_period" else "publication cohort, wording observed today"})
     changes = []
     history = defaultdict(list)
     for o in candidates:
         history[o["vacancy_id"]].append(o)
     for vacancy, versions in history.items():
-        versions.sort(key=lambda o: o.get("capture_at", ""))
+        versions.sort(key=wording_stamp)
         for before, after in zip(versions, versions[1:]):
             if before["clean_sha256"] == after["clean_sha256"]:
                 continue
             changes.append({"vacancy_id": vacancy, "before_document_id": before["document_id"], "after_document_id": after["document_id"],
-                            "before_capture": before["capture_at"], "after_capture": after["capture_at"],
+                            "before_capture": wording_stamp(before), "after_capture": wording_stamp(after),
                             "comparison": "captured_text_difference; edit date and requirement meaning not inferred",
                             "parser_compatible": before.get("parser_version") == after.get("parser_version"),
                             "diff": "\n".join(difflib.unified_diff(Path(before["clean_file"]).read_text().splitlines(), Path(after["clean_file"]).read_text().splitlines()))})
-    display = [r for r in metrics if r["share_percent"] is not None and r["time_basis"] == "capture_period" and r["statement_scope"] == "qualification"]
+    display = [r for r in metrics if r["share_percent"] is not None and r["time_basis"] in {"capture_period", "historical_wording"} and r["statement_scope"] == "qualification"]
     levels = defaultdict(set)
     for r in display:
         levels[(r["level"], r["employment_type"], r["period"], r["assessment_basis"])].add(r["role_group_id"])
@@ -262,7 +298,7 @@ def report(directory: Path, config: dict) -> dict:
     matching_levels = defaultdict(set)
     for r in display:
         if r["method_versions"] == [evaluation_signature] and r["level"] != "unknown":
-            matching_levels[(r["employer_id"], r["brand"], r["level"], r["employment_type"], r["period"], r["assessment_basis"], r["concept"], r["requirement_status"])].add(r["role_group_id"])
+            matching_levels[(r["time_basis"], r["collection_kind"], r["employer_id"], r["brand"], r["level"], r["employment_type"], r["period"], r["assessment_basis"], r["concept"], r["requirement_status"])].add(r["role_group_id"])
     ready = any(len(ids) >= 2 for ids in matching_levels.values()) and gate["held_out_evaluation"] == "passed"
     result = {"run_id": directory.name, "study_version": 1, "status": "comparison_ready" if ready else "evidence_limited",
               "analysis_signature": analysis_signature(directory), "stale_extraction_documents": stale_documents,
@@ -272,6 +308,7 @@ def report(directory: Path, config: dict) -> dict:
                     "sources": {key: {k:v for k,v in info.items() if k not in {"pending", "seen_paths", "detail_captures", "inventory_ids", "page_signatures"}}
                                 for key,info in s["sources"].items()}} for s in manifest.get("collection_sessions", [])],
               "coverage_counts": {"eligible_distinct_vacancies": len(latest),
+                    "eligible_identity_candidates": len({o["vacancy_id"] for o in coverage_candidates if o.get("identity_status") == "unresolved_historical_candidate"}),
                     "readable_observations": sum(bool(o.get("description_readable")) for o in observations),
                     "scope_ambiguous_vacancies": len({o["vacancy_id"] for o in candidates if o.get("scope_decision", {}).get("decision") == "ambiguous"}),
                     "fully_reviewed_documents": sum(document_reviewed(r) for r in records.values() if r.get("accepted")),
@@ -289,7 +326,7 @@ def report(directory: Path, config: dict) -> dict:
               "requirement_combinations": combinations, "mention_counts": statements, "experience_proficiency": experience,
               "mention_summary": mention_summary, "experience_summary": experience_summary,
               "same_vacancy_changes": changes, "wording_shares": [], "automation_gate": gate,
-              "comparison_settings": {"minimum_assessed": minimum, "weighted_score": None, "time_bases": ["capture_period", "publication_observed_today"]},
+              "comparison_settings": {"minimum_assessed": minimum, "weighted_score": None, "time_bases": [v[0] for v in views]},
               "next_targeted_query": {"recommendation": "Review taxonomy and full-text gold/audit packets; provider and spend remain gated."},
               "limitations": ["Surviving current postings are not historical wording evidence.", "Live inventory and source coverage can change during collection.",
                               "Reposting and role/seniority composition affect publication cohorts.", "Non-detection and not-mentioned are not proof of hiring unimportance.",

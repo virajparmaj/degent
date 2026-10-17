@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');
+const {escape,pathGet,pathSet,selectedSpan,normalizeLabels}=require('../degent/web/phase.js');
+assert.equal(escape('<script>"x"&'), '&lt;script&gt;&quot;x&quot;&amp;');
+const object={documents:[{labels:[{experience_range:null}]}]};
+pathSet(object,'documents.0.labels.0.experience_range.1',5);
+assert.deepEqual(pathGet(object,'documents.0.labels.0.experience_range'),[,5]);
+assert.equal(normalizeLabels({documents:[{labels:[{experience_range:[null,null],status:'not_required'}]}]}).documents[0].labels[0].negated,true);
+const selection={rangeCount:1,getRangeAt(){return {startContainer:1,endContainer:1,startOffset:6,toString:()=> 'SQL',cloneRange(){return {selectNodeContents(){},setEnd(){},toString:()=> '😀SQL '};}};}};
+assert.deepEqual(selectedSpan({contains:()=>true},selection),{start:5,end:8,text:'SQL'});
+assert.equal(selectedSpan({contains:()=>false},selection),null);
+console.log('Phase frontend checks passed: escaping, nested draft edits, negation, Unicode offsets and range isolation.');

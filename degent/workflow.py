@@ -94,6 +94,8 @@ def audit_evidence(config: dict, run_id: str) -> dict:
 
 
 def run_pipeline(config: dict, run_id: str, use_codex: bool = False) -> dict:
+    from .phase_state import reject_broad
+    reject_broad(config, run_id)
     if config.get("study_version") == 1:
         from .study import run
         return run(config, run_id)
